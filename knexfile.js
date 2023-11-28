@@ -5,7 +5,7 @@ module.exports = {
       host: "localhost",
       user: "root",
       password: "123456",
-      database: "LetsGraduate",
+      database: "letsgraduate",
     },
     migrations: {
       directory: "./db/migrations", // You can choose any directory you like

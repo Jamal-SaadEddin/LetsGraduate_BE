@@ -4,6 +4,7 @@ exports.up = function (knex) {
     table.integer("doctorId");
     table.integer("projectId");
     table.string("content");
+    table.string("dateCreated");
   });
 };
 

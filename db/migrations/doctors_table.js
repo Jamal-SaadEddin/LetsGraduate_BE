@@ -4,11 +4,10 @@ exports.up = function (knex) {
     table.string("firstName");
     table.string("lastName");
     table.string("email");
-    table.string("password");
     table.string("department");
     table.string("address");
     table.string("mobileNumber");
-    table.boolean("isSupervising");
+    table.boolean("isSupervisor");
     table.boolean("isDepartmentManager");
     table.boolean("isProjectsCommitteeMember");
   });

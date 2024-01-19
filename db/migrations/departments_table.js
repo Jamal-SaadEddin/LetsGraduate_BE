@@ -1,9 +1,9 @@
 exports.up = function (knex) {
   return knex.schema.createTable("departments", function (table) {
-    table.string("department").primary();
-    table.integer("maxNoOfStuForProj");
-    table.integer("maxNoOfProjForDoct");
-    table.integer("maxNoOfStuForDoct");
+    table.string("departmentName").primary();
+    table.integer("maxNoOfStuPerProj");
+    table.integer("maxNoOfProjPerDoct");
+    table.integer("maxNoOfStuPerDoct");
     table.string("currentPeriod");
   });
 };

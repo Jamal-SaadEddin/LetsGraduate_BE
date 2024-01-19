@@ -4,13 +4,13 @@ exports.up = function (knex) {
     table.string("firstName");
     table.string("lastName");
     table.string("email");
-    table.string("password");
     table.string("department");
     table.string("address");
     table.string("mobileNumber");
-    table.string("projectOneState");
-    table.string("projectTwoState");
-    table.integer("projectId");
+    table.string("gp1State");
+    table.string("gp2State");
+    table.string("projectType");
+    table.boolean("isWithGroup");
   });
 };
 

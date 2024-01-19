@@ -4,6 +4,8 @@ exports.up = function (knex) {
     table.string("projectTitle");
     table.integer("doctorId");
     table.integer("mergedProjectId");
+    table.string("projectType");
+    table.string("department");
   });
 };
 

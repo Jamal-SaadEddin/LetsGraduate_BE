@@ -4,8 +4,12 @@ exports.up = function (knex) {
     table.integer("senderId");
     table.integer("reciverId");
     table.string("readStatus");
+    table.string("type");
     table.string("acceptStatus");
     table.string("content");
+    table.string("dateCreated");
+    table.string("notifyButtonText");
+    table.string("senderType");
   });
 };
 

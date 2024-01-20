@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Prerequisite = require("../models/prerequisite");
 
-router.post("/", async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
     const newPrerequisite = await Prerequisite.create(req.body);
     res.json({
@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/filter", async (req, res) => {
   try {
     const { department, projectType } = req.query;
 
@@ -31,3 +31,5 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Error fetching prerequisites" });
   }
 });
+
+module.exports = router;

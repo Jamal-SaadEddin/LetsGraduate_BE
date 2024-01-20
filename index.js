@@ -1,7 +1,9 @@
 const express = require("express");
 const sequelize = require("./config/database");
 const Prerequisite = require("./models/prerequisite");
+const Partnership = require("./models/partnership");
 const prerequisitesRoutes = require("./routes/prerequisites");
+const partnershipsRoutes = require("./routes/partnerships");
 
 const app = express();
 
@@ -20,6 +22,7 @@ app.use(express.json());
 
 // Routes
 app.use("/prerequisites", prerequisitesRoutes);
+app.use("/partnerships", partnershipsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

@@ -32,7 +32,9 @@ router.get("/fetchProject/:studentId", async (req, res) => {
 router.put("/editTitle/:studentId", async (req, res) => {
   try {
     const { studentId } = req.params;
-    const { newProjectTitle } = req.body;
+    const { projectTitle } = req.body;
+    console.log(studentId);
+    console.log(projectTitle);
 
     // Find the projectId associated with the studentId
     const projectId = await Partnership.findOne({
@@ -43,8 +45,8 @@ router.put("/editTitle/:studentId", async (req, res) => {
     });
 
     await Project.update(
-      { projectTitle: newProjectTitle },
-      { where: { projectId } }
+      { projectTitle: projectTitle },
+      { where: { projectId: projectId.projectId } }
     );
 
     res.json({ message: "Project title updated successfully" });

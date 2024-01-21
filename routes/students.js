@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Student = require("../models/student");
 const Sequelize = require("sequelize");
+const Partnership = require("../models/partnership");
 
 router.post("/add", async (req, res) => {
   try {
@@ -39,11 +40,32 @@ router.get("/filter", async (req, res) => {
   }
 });
 
-router.get("/find", async (req, res) => {
+router.get("/findMyPartners", async (req, res) => {
   try {
-    const { studentsIds } = req.query;
-    const ids = studentsIds.map((item) => item.id);
+    const { studentId } = req.query;
 
+    // Find the projectId associated with the studentId
+    const projectId = await Partnership.findOne({
+      attributes: ["projectId"],
+      where: {
+        studentId: studentId,
+      },
+    });
+
+    if (projectId == null) {
+      res.json("Doesn't have partnership");
+      return; // Exit early if no partnership found
+    }
+
+    // Fetch student IDs based on the retrieved projectId
+    const studentsIds = await Partnership.findAll({
+      attributes: ["studentId"],
+      where: {
+        projectId: projectId.projectId, // Access projectId from result
+      },
+    });
+
+    // Retrieve student information using the student IDs
     const students = await Student.findAll({
       attributes: [
         "firstName",
@@ -56,7 +78,9 @@ router.get("/find", async (req, res) => {
       ],
       where: {
         studentId: {
-          [Sequelize.Op.in]: Sequelize.literal(`(${ids.join(",")})`),
+          [Sequelize.Op.in]: Sequelize.literal(
+            `(${studentsIds.map((item) => item.studentId).join(",")})`
+          ),
         },
       },
     });
@@ -64,7 +88,7 @@ router.get("/find", async (req, res) => {
     res.json(students);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching student" });
+    res.status(500).json({ message: "Error fetching partners" });
   }
 });
 

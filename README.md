@@ -14,7 +14,12 @@ create prerequisite
 
 ---
 
-fetch prerequisite by department and projectType
+fetch prerequisite by department and projectType GET
 /prerequisites/filter?department=Computer%20Engineering&projectType=gp1
 
 ---
+
+page 3
+
+fetch partners
+/students/findMyPartners?studentId=11925044 GET

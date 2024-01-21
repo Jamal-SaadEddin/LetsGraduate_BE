@@ -41,7 +41,7 @@ router.get("/findMySupervisorOrSupervisors", async (req, res) => {
         "mobileNumber",
       ],
       where: {
-        studentId: {
+        doctorId: {
           [Sequelize.Op.in]: Sequelize.literal(
             `(${doctorsIds.map((item) => item.doctorId).join(",")})`
           ),

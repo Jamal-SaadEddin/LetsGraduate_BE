@@ -32,4 +32,21 @@ router.get("/filter", async (req, res) => {
   }
 });
 
+router.delete("delete", async (req, res) => {
+  try {
+    const prerequisiteId = req.query;
+
+    await Prerequisite.destroy({
+      where: {
+        prerequisiteId: prerequisiteId,
+      },
+    });
+
+    res.json({ message: "Prerequisite deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching prerequisites" });
+  }
+});
+
 module.exports = router;

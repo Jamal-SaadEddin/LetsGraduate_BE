@@ -1,5 +1,6 @@
 const express = require("express");
 const sequelize = require("./config/database");
+const cors = require("cors");
 const Prerequisite = require("./models/prerequisite");
 const Partnership = require("./models/partnership");
 const Student = require("./models/student");
@@ -8,6 +9,7 @@ const partnershipsRoutes = require("./routes/partnerships");
 const studentsRoutes = require("./routes/students");
 
 const app = express();
+app.use(cors());
 
 // Database connection
 sequelize

@@ -19,6 +19,11 @@ fetch prerequisite by department and projectType GET
 
 ---
 
+delete prerequisite DELETE
+/prerequisites/delete?prerequisiteId=2
+
+---
+
 page 3
 
 fetch partners

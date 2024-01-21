@@ -32,4 +32,9 @@ fetch partners
 ---
 
 fetch supervisor or supervisors for student
-/doctors/findMySupervisorOrSupervisors?studentId=11925044
+/doctors/findMySupervisorOrSupervisors?studentId=11925044 GET
+
+---
+
+fetch project title
+/students//projectTitle?studentId=11925044 GET

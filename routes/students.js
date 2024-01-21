@@ -3,6 +3,7 @@ const router = express.Router();
 const Student = require("../models/student");
 const Sequelize = require("sequelize");
 const Partnership = require("../models/partnership");
+const Project = require("../models/project");
 
 router.post("/add", async (req, res) => {
   try {
@@ -37,6 +38,32 @@ router.get("/filter", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching student" });
+  }
+});
+
+router.get("/projectTitle", async (req, res) => {
+  try {
+    const { studentId } = req.query;
+
+    // Find the projectId associated with the studentId
+    const projectId = await Partnership.findOne({
+      attributes: ["projectId"],
+      where: {
+        studentId: studentId,
+      },
+    });
+
+    const projectTitle = await Project.findOne({
+      attributes: ["projectTitle"],
+      where: {
+        projectId: projectId.projectId,
+      },
+    });
+
+    res.json(projectTitle);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching project title" });
   }
 });
 

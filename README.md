@@ -28,3 +28,8 @@ page 3
 
 fetch partners
 /students/findMyPartners?studentId=11925044 GET
+
+---
+
+fetch supervisor or supervisors for student
+/doctors/findMySupervisorOrSupervisors?studentId=11925044

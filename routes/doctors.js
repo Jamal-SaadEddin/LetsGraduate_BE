@@ -55,3 +55,5 @@ router.get("/findMySupervisorOrSupervisors", async (req, res) => {
     res.status(500).json({ message: "Error fetching partners" });
   }
 });
+
+module.exports = router;

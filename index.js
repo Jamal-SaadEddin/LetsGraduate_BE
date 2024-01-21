@@ -4,6 +4,7 @@ const cors = require("cors");
 const Prerequisite = require("./models/prerequisite");
 const Partnership = require("./models/partnership");
 const Student = require("./models/student");
+const Doctor = require("./models/doctor");
 const prerequisitesRoutes = require("./routes/prerequisites");
 const partnershipsRoutes = require("./routes/partnerships");
 const studentsRoutes = require("./routes/students");

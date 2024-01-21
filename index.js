@@ -9,6 +9,7 @@ const prerequisitesRoutes = require("./routes/prerequisites");
 const partnershipsRoutes = require("./routes/partnerships");
 const studentsRoutes = require("./routes/students");
 const doctorsRoutes = require("./routes/doctors");
+const projectsRoutes = require("./routes/projects");
 
 const app = express();
 app.use(cors());
@@ -31,6 +32,7 @@ app.use("/prerequisites", prerequisitesRoutes);
 app.use("/partnerships", partnershipsRoutes);
 app.use("/students", studentsRoutes);
 app.use("/doctors", doctorsRoutes);
+app.use("/projects", projectsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

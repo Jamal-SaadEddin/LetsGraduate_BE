@@ -37,4 +37,11 @@ fetch supervisor or supervisors for student
 ---
 
 fetch project title
-/students//projectTitle?studentId=11925044 GET
+/projects/fetchTitle/11925044 GET
+
+---
+
+update project title
+/projects/editTitle/11925044 PUT
+
+---

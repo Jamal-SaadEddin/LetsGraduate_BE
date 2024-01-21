@@ -41,32 +41,6 @@ router.get("/filter", async (req, res) => {
   }
 });
 
-router.get("/projectTitle", async (req, res) => {
-  try {
-    const { studentId } = req.query;
-
-    // Find the projectId associated with the studentId
-    const projectId = await Partnership.findOne({
-      attributes: ["projectId"],
-      where: {
-        studentId: studentId,
-      },
-    });
-
-    const projectTitle = await Project.findOne({
-      attributes: ["projectTitle"],
-      where: {
-        projectId: projectId.projectId,
-      },
-    });
-
-    res.json(projectTitle);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching project title" });
-  }
-});
-
 router.get("/findMyPartners", async (req, res) => {
   try {
     const { studentId } = req.query;
@@ -95,6 +69,7 @@ router.get("/findMyPartners", async (req, res) => {
     // Retrieve student information using the student IDs
     const students = await Student.findAll({
       attributes: [
+        "studentId",
         "firstName",
         "lastName",
         "fullName",

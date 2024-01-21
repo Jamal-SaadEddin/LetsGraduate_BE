@@ -36,8 +36,8 @@ fetch supervisor or supervisors for student
 
 ---
 
-fetch project title
-/projects/fetchTitle/11925044 GET
+fetch project title and type
+/projects/fetchProject/11925044 GET
 
 ---
 

@@ -3,7 +3,7 @@ const router = express.Router();
 const Project = require("../models/project");
 const Partnership = require("../models/partnership");
 
-router.get("/fetchTitle/:studentId", async (req, res) => {
+router.get("/fetchProject/:studentId", async (req, res) => {
   try {
     const { studentId } = req.params;
 
@@ -15,14 +15,14 @@ router.get("/fetchTitle/:studentId", async (req, res) => {
       },
     });
 
-    const projectTitle = await Project.findOne({
-      attributes: ["projectTitle"],
+    const project = await Project.findOne({
+      attributes: ["projectTitle", "projectType"],
       where: {
         projectId: projectId.projectId,
       },
     });
 
-    res.json(projectTitle);
+    res.json(project);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching project title" });

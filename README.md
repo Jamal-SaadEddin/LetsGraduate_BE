@@ -24,7 +24,19 @@ delete prerequisite DELETE
 
 ---
 
-page 3
+page 2 (Find Partners)
+
+fetch students with groups
+/findPartners1/findGroups?department=Computer%20Engineering&projectType=gp1 GET
+
+---
+
+fetch students without groups
+/findPartners2/studentsNotJoined?department=Computer%20Engineering&projectType=gp1 GET
+
+---
+
+page 3 (My project info)
 
 fetch partners
 /students/findMyPartners?studentId=11925044 GET

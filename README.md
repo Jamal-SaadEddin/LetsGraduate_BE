@@ -69,3 +69,10 @@ page 5 (Abstract Submission)
 /submission/abstract?studentId=11923604 GET
 
 ---
+
+page 6 (Abstract-Comments and Feedbacks)
+
+fetch comments on the abstract
+/abstractComments/comments?studentId=11923604 GET
+
+---

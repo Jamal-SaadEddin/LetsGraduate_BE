@@ -3,6 +3,7 @@ const router = express.Router();
 const Partnership = require("../../models/partnership");
 const Comment = require("../../models/comment");
 const Project = require("../../models/project");
+const Doctor = require("../../models/doctor");
 
 router.get("/comments", async (req, res) => {
   try {
@@ -37,11 +38,23 @@ router.get("/comments", async (req, res) => {
       for (const supervisorId in supervisorsIds) {
         const supervisorIdValue =
           supervisorsIds[supervisorId].dataValues.doctorId;
-
         if (commentData.dataValues.doctorId == supervisorIdValue) {
-          commentsData[comment] = commentData.dataValues;
+          // Find the Name associated with the doctorId
+          const sender = await Doctor.findOne({
+            attributes: ["firstName", "lastName", "fullName"],
+            where: {
+              doctorId: supervisorIdValue,
+            },
+          });
+          commentsData[comment] = {
+            ...commentData.dataValues,
+            sender: sender.fullName,
+          };
         } else {
-          commentsData[comment] = commentData.dataValues;
+          commentsData[comment] = {
+            ...commentData.dataValues,
+            sender: "Projects Commitee",
+          };
         }
       }
     }

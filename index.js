@@ -10,6 +10,7 @@ const findPartnersRoutes1 = require("./routes/student/findgroups");
 const findPartnersRoutes2 = require("./routes/student/find_students_without_groups");
 const chooseSupervisorRoutes = require("./routes/student/findsupervisors");
 const fetchAbstractRoutes = require("./routes/student/findabstract");
+const abstractCommentstRoutes = require("./routes/student/abstract_comments");
 
 const app = express();
 app.use(cors());
@@ -37,6 +38,7 @@ app.use("/findPartners1", findPartnersRoutes1);
 app.use("/findPartners2", findPartnersRoutes2);
 app.use("/chooseSupervisor", chooseSupervisorRoutes);
 app.use("/submission", fetchAbstractRoutes);
+app.use("/abstractComments", abstractCommentstRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

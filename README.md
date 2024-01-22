@@ -57,3 +57,10 @@ update project title
 /projects/editTitle/11925044 PUT
 
 ---
+
+page 4 (choose supervisor)
+
+fetch supervisors
+/chooseSupervisor/supervisors?studentId=11925044 GET
+
+---

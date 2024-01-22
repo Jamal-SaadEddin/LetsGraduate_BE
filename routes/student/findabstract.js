@@ -22,9 +22,9 @@ router.get("/abstract", async (req, res) => {
     });
 
     if (submission) {
-      res.json({ message: "Submitted" });
+      res.json(submission);
     } else {
-      res.json({ message: "NotSubmitted" });
+      res.json([]);
     }
   } catch (error) {
     console.error(error);

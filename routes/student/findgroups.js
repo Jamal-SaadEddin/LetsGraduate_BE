@@ -57,6 +57,7 @@ router.get("/findGroups", async (req, res) => {
       groupsData[groupIdsKey] = groupData.map((group) => ({
         ...group.dataValues,
         fullName: group.fullName,
+        projectId: groupIdsKey,
       }));
     }
 

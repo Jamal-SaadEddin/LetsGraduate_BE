@@ -24,7 +24,7 @@ router.get("/abstract", async (req, res) => {
     if (submission) {
       res.json(submission);
     } else {
-      res.json([]);
+      res.json(undefined);
     }
   } catch (error) {
     console.error(error);

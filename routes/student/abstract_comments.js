@@ -53,7 +53,7 @@ router.get("/comments", async (req, res) => {
         } else {
           commentsData[comment] = {
             ...commentData.dataValues,
-            sender: "Projects Commitee",
+            sender: "Projects Committee",
           };
         }
       }

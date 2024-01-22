@@ -17,7 +17,14 @@ router.get("/supervisors", async (req, res) => {
 
     // Retrieve supervisors information based on department & isSupervisor
     const supervisors = await Doctor.findAll({
-      attributes: ["firstName", "lastName", "fullName", "department", "email"],
+      attributes: [
+        "doctorId",
+        "firstName",
+        "lastName",
+        "fullName",
+        "department",
+        "email",
+      ],
       where: {
         department: department.department,
         isSupervisor: 1,

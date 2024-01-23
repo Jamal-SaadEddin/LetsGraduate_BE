@@ -48,6 +48,26 @@ router.post("/notification", async (req, res) => {
           senderType: senderType,
         });
       }
+    } else if (senderType === "group") {
+      // Check if sender is within group
+      senderProjectId = await Partnership.findOne({
+        attributes: ["projectId"],
+        where: {
+          studentId: senderId,
+        },
+      });
+
+      // send request to supervisor for supervising their group
+      await Notification.create({
+        senderId: senderProjectId,
+        reciverId: reciverId,
+        readStatus: "unread",
+        type: type,
+        acceptStatus: "pending",
+        content: content,
+        dateCreated: formattedDate,
+        senderType: senderType,
+      });
     } else {
       // send join request when reciver student is single(without group)
       await Notification.create({

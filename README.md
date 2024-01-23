@@ -46,7 +46,8 @@ POST body
 "reciverId": 11925066,
 "senderId" : 11925044,
 "type" : "request",
-"content" : "is requesting to join your group"
+"content" : "is requesting to join your group",
+"senderType" : "student"
 }
 ```
 
@@ -119,6 +120,11 @@ fetch comments on the abstract
 /abstractComments/comments?studentId=11923604 GET
 
 ---
+
+page 7 (notifications view)
+
+view notifications
+/viewNotifications/notifications?userId=1355 GET
 
 ```
 

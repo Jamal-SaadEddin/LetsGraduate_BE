@@ -12,6 +12,7 @@ const chooseSupervisorRoutes = require("./routes/student/findsupervisors");
 const fetchAbstractRoutes = require("./routes/student/findabstract");
 const abstractCommentstRoutes = require("./routes/student/abstract_comments");
 const createNotificationRoutes = require("./routes/student/create_notification");
+const viewNotificationsRoutes = require("./routes/student/view_notifications");
 
 const app = express();
 app.use(cors());
@@ -41,6 +42,7 @@ app.use("/chooseSupervisor", chooseSupervisorRoutes);
 app.use("/submission", fetchAbstractRoutes);
 app.use("/abstractComments", abstractCommentstRoutes);
 app.use("/createNotification", createNotificationRoutes);
+app.use("/viewNotifications", viewNotificationsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

@@ -11,7 +11,7 @@ const findPartnersRoutes2 = require("./routes/student/find_students_without_grou
 const chooseSupervisorRoutes = require("./routes/student/findsupervisors");
 const fetchAbstractRoutes = require("./routes/student/findabstract");
 const abstractCommentstRoutes = require("./routes/student/abstract_comments");
-const joinGroupRoutes = require("./routes/student/join_group_request");
+const createNotificationRoutes = require("./routes/student/create_notification");
 
 const app = express();
 app.use(cors());
@@ -40,7 +40,7 @@ app.use("/findPartners2", findPartnersRoutes2);
 app.use("/chooseSupervisor", chooseSupervisorRoutes);
 app.use("/submission", fetchAbstractRoutes);
 app.use("/abstractComments", abstractCommentstRoutes);
-app.use("/joinGroup", joinGroupRoutes);
+app.use("/createNotification", createNotificationRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

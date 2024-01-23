@@ -10,17 +10,22 @@ router.post("/notification", async (req, res) => {
     const senderId = req.body.senderId;
     const type = req.body.type;
     const content = req.body.content;
+    const senderType = req.body.senderType;
     const commentDate = new Date();
     const formattedDate = commentDate.toISOString();
 
-    // Check if sender is within group
-    const projectId = await Partnership.findOne({
-      attributes: ["projectId"],
-      where: {
-        studentId: reciverId,
-      },
-    });
-    if (projectId) {
+    let projectId;
+    if (senderType === "student") {
+      // Check if sender is within group
+      projectId = await Partnership.findOne({
+        attributes: ["projectId"],
+        where: {
+          studentId: reciverId,
+        },
+      });
+    }
+
+    if (senderType === "student" && projectId) {
       // Find the studentsIds associated with the projectId
       const studentsIds = await Partnership.findAll({
         attributes: ["studentId"],
@@ -40,7 +45,7 @@ router.post("/notification", async (req, res) => {
           acceptStatus: "pending",
           content: content,
           dateCreated: formattedDate,
-          senderType: "student",
+          senderType: senderType,
         });
       }
     } else {
@@ -53,7 +58,7 @@ router.post("/notification", async (req, res) => {
         acceptStatus: "pending",
         content: content,
         dateCreated: formattedDate,
-        senderType: "student",
+        senderType: senderType,
       });
     }
 

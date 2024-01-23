@@ -34,6 +34,35 @@ fetch students with groups
 fetch students without groups
 /findPartners2/studentsNotJoined?department=Computer%20Engineering&projectType=gp1 GET
 
+join group
+/joinGroup/notification POST
+
+POST body
+
+```
+When reciver student is in group
+
+{
+"reciverId": 11925066,
+"senderId" : 11925044,
+"type" : "request",
+"content" : "is requesting to join your group"
+}
+---
+
+when reciver student is single(without group)
+
+{
+"reciverId": 11825033,
+"senderId" : 11925044,
+"type" : "request",
+"content" : "is requesting to join your group"
+}
+
+```
+
+---
+
 ---
 
 page 3 (My project info)
@@ -76,3 +105,7 @@ fetch comments on the abstract
 /abstractComments/comments?studentId=11923604 GET
 
 ---
+
+```
+
+```

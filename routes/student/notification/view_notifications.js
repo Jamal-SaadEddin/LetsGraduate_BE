@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Partnership = require("../../models/partnership");
-const Notification = require("../../models/notification");
-const Student = require("../../models/student");
-const Project = require("../../models/project");
-const Doctor = require("../../models/doctor");
-const getDuration = require("../../functions/find_notification_duration");
+const Partnership = require("../../../models/partnership");
+const Notification = require("../../../models/notification");
+const Student = require("../../../models/student");
+const Project = require("../../../models/project");
+const Doctor = require("../../../models/doctor");
+const getDuration = require("../../../functions/find_notification_duration");
 
 router.get("/notifications", async (req, res) => {
   try {

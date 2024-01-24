@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Partnership = require("../../models/partnership");
-const Notification = require("../../models/notification");
+const Partnership = require("../../../models/partnership");
+const Notification = require("../../../models/notification");
 
 router.delete("/notification", async (req, res) => {
   try {

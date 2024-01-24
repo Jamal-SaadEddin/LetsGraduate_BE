@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const Student = require("../../models/student");
+const Student = require("../../../models/student");
 const Sequelize = require("sequelize");
-const Partnership = require("../../models/partnership");
-const Project = require("../../models/project");
+const Partnership = require("../../../models/partnership");
+const Project = require("../../../models/project");
 
 router.get("/findGroups", async (req, res) => {
   try {

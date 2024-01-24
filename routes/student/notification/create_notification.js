@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Partnership = require("../../models/partnership");
-const Notification = require("../../models/notification");
-const Student = require("../../models/student");
+const Partnership = require("../../../models/partnership");
+const Notification = require("../../../models/notification");
+const Student = require("../../../models/student");
 
 router.post("/notification", async (req, res) => {
   try {

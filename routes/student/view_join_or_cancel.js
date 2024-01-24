@@ -1,12 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const Notification = require("../../models/notification");
+const Partnership = require("../../models/partnership");
 
 router.get("/notification", async (req, res) => {
   try {
-    const { senderId } = req.query;
+    let { senderId } = req.query;
     const { receiverId } = req.query;
+    const { joinType } = req.query;
 
+    if (joinType == "group") {
+      // fetch projectId associated with senderId
+      projectId = await Partnership.findOne({
+        attributes: ["projectId"],
+        where: {
+          studentId: senderId,
+        },
+      });
+      senderId = projectId.projectId;
+    }
     // Find all notifications associated with the senderId & receiverId
     const notification = await Notification.findOne({
       where: {

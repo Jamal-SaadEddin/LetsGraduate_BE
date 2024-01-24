@@ -62,6 +62,8 @@ POST body
 }
 
 ```
+view join Or cancel button
+/viewJoinOrCancel/notification?senderId=11925044&receiverId=11923604  GET
 
 ```
 

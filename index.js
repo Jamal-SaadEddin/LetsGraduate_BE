@@ -14,6 +14,7 @@ const abstractCommentstRoutes = require("./routes/student/abstract_comments");
 const createNotificationRoutes = require("./routes/student/create_notification");
 const viewNotificationsRoutes = require("./routes/student/view_notifications");
 const deleteNotificationsRoutes = require("./routes/student/delete_notification");
+const viewJoinOrCancelRoutes = require("./routes/student/view_join_or_cancel");
 
 const app = express();
 app.use(cors());
@@ -45,6 +46,7 @@ app.use("/abstractComments", abstractCommentstRoutes);
 app.use("/createNotification", createNotificationRoutes);
 app.use("/viewNotifications", viewNotificationsRoutes);
 app.use("/deleteNotifications", deleteNotificationsRoutes);
+app.use("/viewJoinOrCancel", viewJoinOrCancelRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

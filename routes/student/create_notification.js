@@ -15,6 +15,7 @@ router.post("/notification", async (req, res) => {
     const formattedDate = commentDate.toISOString();
 
     let projectId;
+    let isRequestExisit = false;
     if (senderType === "student") {
       // Check if sender is within group
       projectId = await Partnership.findOne({
@@ -57,17 +58,28 @@ router.post("/notification", async (req, res) => {
         },
       });
 
-      // send request to supervisor for supervising their group
-      await Notification.create({
-        senderId: senderProjectId,
-        reciverId: reciverId,
-        readStatus: "unread",
-        type: type,
-        acceptStatus: "pending",
-        content: content,
-        dateCreated: formattedDate,
-        senderType: senderType,
+      //check if sender's group sent request before
+      senderProjectId = await Notification.findOne({
+        where: {
+          senderId: senderProjectId.projectId,
+        },
       });
+
+      if (senderProjectId) {
+        isRequestExisit = true;
+      } else {
+        // send request to supervisor for supervising their group
+        await Notification.create({
+          senderId: senderProjectId.projectId,
+          reciverId: reciverId,
+          readStatus: "unread",
+          type: type,
+          acceptStatus: "pending",
+          content: content,
+          dateCreated: formattedDate,
+          senderType: senderType,
+        });
+      }
     } else {
       // send join request when reciver student is single(without group)
       await Notification.create({
@@ -82,9 +94,15 @@ router.post("/notification", async (req, res) => {
       });
     }
 
-    res.json({
-      message: "Notification created successfully",
-    });
+    if (isRequestExisit) {
+      res.json({
+        message: "You or your group sent request before",
+      });
+    } else {
+      res.json({
+        message: "Notification created successfully",
+      });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error in creating notification" });

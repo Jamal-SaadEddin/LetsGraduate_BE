@@ -7,40 +7,59 @@ router.delete("/notification", async (req, res) => {
   try {
     const { senderId } = req.query;
     const { receiverId } = req.query;
+    const { joinType } = req.query;
 
-    // Check if receiver is within group
-    projectId = await Partnership.findOne({
-      attributes: ["projectId"],
-      where: {
-        studentId: receiverId,
-      },
-    });
-
-    if (projectId) {
-      // Find the studentsIds associated with the projectId
-      const studentsIds = await Partnership.findAll({
-        attributes: ["studentId"],
+    if (joinType == "group") {
+      // Check if receiver is within group
+      projectId = await Partnership.findOne({
+        attributes: ["projectId"],
         where: {
-          projectId: projectId.projectId,
+          studentId: receiverId,
         },
       });
 
-      for (const studentId in studentsIds) {
-        const studentIdValue = studentsIds[studentId].dataValues.studentId;
+      if (projectId) {
+        // Find the studentsIds associated with the projectId
+        const studentsIds = await Partnership.findAll({
+          attributes: ["studentId"],
+          where: {
+            projectId: projectId.projectId,
+          },
+        });
 
-        // delete join request when reciver student is in group
+        for (const studentId in studentsIds) {
+          const studentIdValue = studentsIds[studentId].dataValues.studentId;
+
+          // delete join request when reciver student is in group
+          await Notification.destroy({
+            where: {
+              senderId: senderId,
+              reciverId: studentIdValue,
+            },
+          });
+        }
+      } else {
+        // delete join request when reciver student is without group
         await Notification.destroy({
           where: {
             senderId: senderId,
-            reciverId: studentIdValue,
+            reciverId: receiverId,
           },
         });
       }
     } else {
-      // delete join request when reciver student is without group
+      // fetch ProjectId associated with senderId
+      senderProjectId = await Partnership.findOne({
+        attributes: ["projectId"],
+        where: {
+          studentId: senderId,
+        },
+      });
+
+      // delete send request to supervisor
       await Notification.destroy({
         where: {
-          senderId: senderId,
+          senderId: senderProjectId,
           reciverId: receiverId,
         },
       });

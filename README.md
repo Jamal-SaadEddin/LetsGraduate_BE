@@ -205,6 +205,20 @@ PUT body
 
 ---
 
+page 12 (delete account)
+
+delete account
+/deleteAccount/account  DELETE
+
+DELETE body
+
+{
+"userId": 11725044
+}
+
+
+---
+
 ```
 
 ```

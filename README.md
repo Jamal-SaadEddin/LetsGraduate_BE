@@ -136,12 +136,15 @@ view notifications
 ---
 
 delete notification when receiver within group
-/deleteNotifications/notification?senderId=11925044&receiverId=11923604 DELETE
+/deleteNotifications/notification?senderId=11925044&receiverId=11923604&joinType=group DELETE
 
 ---
 
 delete notification when receiver without group
-/deleteNotifications/notification?senderId=11925044&receiverId=11825033 DELETE
+/deleteNotifications/notification?senderId=11925044&receiverId=11825033&joinType=group DELETE
+
+delete notification sent to supervisor
+/deleteNotifications/notification?senderId=11923604&receiverId=1355&joinType=supervisor DELETE
 
 ```
 

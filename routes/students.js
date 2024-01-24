@@ -30,7 +30,31 @@ router.get("/viewProfile", async (req, res) => {
     res.json(student);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching student" });
+    res.status(500).json({ message: "Error viewing student data" });
+  }
+});
+
+router.put("/updateProfile", async (req, res) => {
+  try {
+    const studentId = req.body.studentId;
+    const studentUpdateData = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      address: req.body.address,
+      mobileNumber: req.body.mobileNumber,
+    };
+
+    await Student.update(studentUpdateData, {
+      where: {
+        studentId: studentId,
+      },
+      fields: ["firstName", "lastName", "address", "mobileNumber"],
+    });
+
+    res.json({ message: "Student data updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating student data" });
   }
 });
 

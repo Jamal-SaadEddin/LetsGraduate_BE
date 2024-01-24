@@ -154,6 +154,25 @@ page 8 (view profile)
 view student info
 /students/viewProfile?studentId=11923604   GET
 
+---
+
+page 9 (update student profile info)
+
+update student profile info
+/students/updateProfile  PUT
+
+PUT body
+
+{
+"studentId": 11925044,
+"firstName" : "Omar",
+"lastName" : "Qaneer",
+"address" : "Nablus",
+"mobileNumber" :"0594656980"
+}
+
+---
+
 ```
 
 ```

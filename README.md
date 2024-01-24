@@ -173,6 +173,22 @@ PUT body
 
 ---
 
+page 10
+
+
+update student profile
+/users/updatePassword  PUT
+
+PUT body
+
+{
+"userId": 11924066,
+"oldPassword" : "123456",
+"newPassword" : "654321"
+}
+
+---
+
 ```
 
 ```

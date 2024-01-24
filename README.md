@@ -176,7 +176,7 @@ PUT body
 page 10
 
 
-update student profile
+update student password
 /users/updatePassword  PUT
 
 PUT body

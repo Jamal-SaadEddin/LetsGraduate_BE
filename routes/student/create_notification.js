@@ -15,6 +15,7 @@ router.post("/notification", async (req, res) => {
     const formattedDate = commentDate.toISOString();
 
     let projectId;
+    let senderProjectId;
     let isRequestExisit = false;
     if (senderType === "student") {
       // Check if sender is within group
@@ -57,15 +58,16 @@ router.post("/notification", async (req, res) => {
           studentId: senderId,
         },
       });
+      console.log(senderId);
 
       //check if sender's group sent request before
-      senderProjectId = await Notification.findOne({
+      const validate = await Notification.findOne({
         where: {
           senderId: senderProjectId.projectId,
         },
       });
 
-      if (senderProjectId) {
+      if (validate) {
         isRequestExisit = true;
       } else {
         // send request to supervisor for supervising their group

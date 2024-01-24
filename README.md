@@ -148,6 +148,12 @@ delete notification sent to supervisor
 
 ```
 
+page 8 (view profile)
+
+
+view student info
+/students/viewProfile?studentId=11923604   GET
+
 ```
 
 ```

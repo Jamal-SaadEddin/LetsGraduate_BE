@@ -17,18 +17,11 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.get("/filter", async (req, res) => {
+router.get("/viewProfile", async (req, res) => {
   try {
     const { studentId } = req.query;
 
     const student = await Student.findOne({
-      attributes: [
-        "fullName",
-        "email",
-        "department",
-        "address",
-        "mobileNumber",
-      ],
       where: {
         studentId: studentId,
       },

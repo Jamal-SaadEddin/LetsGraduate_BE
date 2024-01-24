@@ -9,7 +9,7 @@ router.get("/notification", async (req, res) => {
     const { receiverId } = req.query;
     const { joinType } = req.query;
 
-    if (joinType == "group") {
+    if (joinType == "supervisor") {
       // fetch projectId associated with senderId
       projectId = await Partnership.findOne({
         attributes: ["projectId"],

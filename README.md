@@ -173,7 +173,7 @@ PUT body
 
 ---
 
-page 10
+page 10   (update student password)
 
 
 update student password
@@ -186,6 +186,22 @@ PUT body
 "oldPassword" : "123456",
 "newPassword" : "654321"
 }
+
+---
+
+page 11 (register project)
+
+register project
+/registerProject/project  PUT
+
+
+PUT body
+
+{
+"studentId": 11823055,
+"projectType" : "gp1"
+}
+
 
 ---
 

@@ -63,7 +63,7 @@ POST body
 
 ```
 view join Or cancel button
-/viewJoinOrCancel/notification?senderId=11925044&receiverId=11923604  GET
+/viewJoinOrCancel/notification?senderId=11925044&receiverId=11923604&joinType=student  GET
 
 ```
 
@@ -108,6 +108,11 @@ POST body
 "content" : "is requesting to join your group",
 "senderType" :"group"
 }
+
+---
+
+view join Or cancel button
+/viewJoinOrCancel/notification?senderId=11925022&receiverId=1355&joinType=group GET
 
 ---
 

@@ -59,7 +59,7 @@ router.delete("/notification", async (req, res) => {
       // delete send request to supervisor
       await Notification.destroy({
         where: {
-          senderId: senderProjectId,
+          senderId: senderProjectId.projectId,
           reciverId: receiverId,
         },
       });

@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 router.delete("/account", async (req, res) => {
   try {
-    const userId = req.body.userId;
+    const { userId } = req.query;
 
     // Fetch user type
     const userType = await User.findOne({

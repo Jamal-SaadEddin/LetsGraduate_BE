@@ -19,6 +19,7 @@ const usersRoutes = require("./routes/users");
 const registerProjectRoutes = require("./routes/student/register_project");
 const deleteAccountRoutes = require("./routes/delete_account");
 const findMyGroupsRoutes = require("./routes/doctor/find_mygroups");
+const myGroupsSubmissionsRoutes = require("./routes/doctor/subtract_submissions");
 
 const app = express();
 app.use(cors());
@@ -55,6 +56,7 @@ app.use("/users", usersRoutes);
 app.use("/registerProject", registerProjectRoutes);
 app.use("/deleteAccount", deleteAccountRoutes);
 app.use("/findMyGroups", findMyGroupsRoutes);
+app.use("/myGroupsSubmissions", myGroupsSubmissionsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

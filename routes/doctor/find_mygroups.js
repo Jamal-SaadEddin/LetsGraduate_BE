@@ -65,7 +65,7 @@ router.get("/groups", async (req, res) => {
     res.json(Object.values(projectsData));
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching partners" });
+    res.status(500).json({ message: "Error fetching my groups" });
   }
 });
 

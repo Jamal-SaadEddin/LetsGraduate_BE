@@ -229,3 +229,8 @@ find my groups
 /findMyGroups/groups?doctorId=1355 GET
 
 ---
+
+page 2 abstract submissions
+
+fetch mygroup submissions
+/myGroupsSubmissions/submissions?doctorId=1355 GET

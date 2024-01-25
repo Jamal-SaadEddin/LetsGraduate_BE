@@ -18,6 +18,7 @@ const viewJoinOrCancelRoutes = require("./routes/student/view_join_or_cancel");
 const usersRoutes = require("./routes/users");
 const registerProjectRoutes = require("./routes/student/register_project");
 const deleteAccountRoutes = require("./routes/delete_account");
+const findMyGroupsRoutes = require("./routes/doctor/find_mygroups");
 
 const app = express();
 app.use(cors());
@@ -53,6 +54,7 @@ app.use("/viewJoinOrCancel", viewJoinOrCancelRoutes);
 app.use("/users", usersRoutes);
 app.use("/registerProject", registerProjectRoutes);
 app.use("/deleteAccount", deleteAccountRoutes);
+app.use("/findMyGroups", findMyGroupsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

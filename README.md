@@ -3,14 +3,16 @@ page 1
 create prerequisite
 /prerequisites/add POST
 
-```
+---
+
 {
-    "prerequisiteId": 1,
-    "department": "Computer Engineering",
-    "projectType":"gp1",
-    "content":"Did you finish 120 hours?",
+"prerequisiteId": 1,
+"department": "Computer Engineering",
+"projectType":"gp1",
+"content":"Did you finish 120 hours?",
 }
-```
+
+---
 
 ---
 
@@ -39,7 +41,8 @@ join group
 
 POST body
 
-```
+---
+
 1-When reciver student is in group
 
 {
@@ -49,7 +52,8 @@ POST body
 "content" : "is requesting to join your group",
 "senderType" : "student"
 }
-```
+
+---
 
 2-when reciver student is single(without group)
 
@@ -61,11 +65,12 @@ POST body
 "senderType" : "student"
 }
 
-```
-view join Or cancel button
-/viewJoinOrCancel/notification?senderId=11925044&receiverId=11923604&joinType=group  GET
+---
 
-```
+view join Or cancel button
+/viewJoinOrCancel/notification?senderId=11925044&receiverId=11923604&joinType=group GET
+
+---
 
 page 3 (My project info)
 
@@ -146,20 +151,19 @@ delete notification when receiver without group
 delete notification sent to supervisor
 /deleteNotifications/notification?senderId=11923604&receiverId=1355&joinType=supervisor DELETE
 
-```
+---
 
 page 8 (view profile)
 
-
 view student info
-/students/viewProfile?studentId=11923604   GET
+/students/viewProfile?studentId=11923604 GET
 
 ---
 
 page 9 (update student profile info)
 
 update student profile info
-/students/updateProfile  PUT
+/students/updateProfile PUT
 
 PUT body
 
@@ -173,11 +177,10 @@ PUT body
 
 ---
 
-page 10   (update student password)
-
+page 10 (update student password)
 
 update student password
-/users/updatePassword  PUT
+/users/updatePassword PUT
 
 PUT body
 
@@ -192,8 +195,7 @@ PUT body
 page 11 (register project)
 
 register project
-/registerProject/project  PUT
-
+/registerProject/project PUT
 
 PUT body
 
@@ -202,19 +204,28 @@ PUT body
 "projectType" : "gp1"
 }
 
-
 ---
 
 page 12 (delete account)
 
 delete account
-/deleteAccount/account?userId=11725044  DELETE
-
+/deleteAccount/account?userId=11725044 DELETE
 
 ---
 
-```
+---
 
-```
+---
 
-```
+---
+
+---
+
+doctor pages
+
+page 1 (My groups)
+
+find my groups
+/findMyGroups/groups?doctorId=1355 GET
+
+---

@@ -4,7 +4,7 @@ const createNotification = require("../../functions/create_notification");
 const Partnership = require("../../models/partnership");
 const Comment = require("../../models/comment");
 
-router.post("/notification", async (req, res) => {
+router.post("/comment", async (req, res) => {
   try {
     const doctorId = req.body.doctorId;
     const projectId = req.body.projectId;

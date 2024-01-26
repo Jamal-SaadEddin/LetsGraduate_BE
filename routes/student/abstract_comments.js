@@ -7,28 +7,37 @@ const Doctor = require("../../models/doctor");
 
 router.get("/comments", async (req, res) => {
   try {
-    const { studentId } = req.query;
+    const { id } = req.query;
 
-    // Find the projectId associated with the studentId
-    const projectId = await Partnership.findOne({
+    // check if id for student or project ?? if it's for studend we will find projectId ,
+    let projectId = await Partnership.findOne({
       attributes: ["projectId"],
       where: {
-        studentId: studentId,
+        studentId: id,
       },
     });
+
+    if (!projectId) {
+      projectId = id;
+    } else {
+      projectId = projectId.projectId;
+    }
+
+    console.log(id);
+    console.log(projectId);
 
     // Find supervisorId associated with the studentId
     const supervisorsIds = await Project.findAll({
       attributes: ["doctorId"],
       where: {
-        projectId: projectId.projectId,
+        projectId: projectId,
       },
     });
 
     // Find the comments associated with the projectId
     const comments = await Comment.findAll({
       where: {
-        projectId: projectId.projectId,
+        projectId: projectId,
       },
     });
 
@@ -48,7 +57,7 @@ router.get("/comments", async (req, res) => {
           });
           commentsData[comment] = {
             ...commentData.dataValues,
-            sender: sender.fullName,
+            sender: "DR. " + sender.fullName,
           };
         } else {
           commentsData[comment] = {

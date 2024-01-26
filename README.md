@@ -129,7 +129,7 @@ page 5 (Abstract Submission)
 page 6 (Abstract-Comments and Feedbacks)
 
 fetch comments on the abstract
-/abstractComments/comments?studentId=11923604 GET
+/abstractComments/comments?id=11923604 GET
 
 ---
 
@@ -238,6 +238,7 @@ fetch mygroup submissions
 ---
 
 page 3 create comment
+
 /createComment/comment POST
 
 POST body
@@ -247,5 +248,10 @@ POST body
 "projectId" : 2,
 "content" : "add another features on your project"
 }
+
+---
+
+get all comments on abstract
+/abstractComments/comments?id=1 GET
 
 ---

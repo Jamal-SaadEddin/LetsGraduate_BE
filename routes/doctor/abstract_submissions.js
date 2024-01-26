@@ -31,17 +31,17 @@ router.get("/submissions", async (req, res) => {
       index = projectId;
 
       // Find the submission associated with the projectId
-      const submission = await Submission.findAll({
+      const submission = await Submission.findOne({
         where: {
           projectId: projectIdValue,
         },
       });
 
-      if (Object.keys(submission).length) {
-        submissions[projectId] = submission.map((item) => ({
-          ...item.dataValues,
+      if (submission) {
+        submissions[projectId] = {
+          ...submission.dataValues,
           operation: "viewing",
-        }));
+        };
       }
     }
 

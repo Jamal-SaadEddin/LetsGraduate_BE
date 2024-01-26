@@ -19,7 +19,7 @@ const usersRoutes = require("./routes/users");
 const registerProjectRoutes = require("./routes/student/register_project");
 const deleteAccountRoutes = require("./routes/delete_account");
 const findMyGroupsRoutes = require("./routes/doctor/find_mygroups");
-const abstractSubmissionsRoutes = require("./routes/doctor/subtract_submissions");
+const abstractSubmissionsRoutes = require("./routes/doctor/abstract_submissions");
 const addCommentRoutes = require("./routes/doctor/add_comment");
 
 const app = express();

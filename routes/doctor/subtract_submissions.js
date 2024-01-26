@@ -60,4 +60,25 @@ router.get("/submissions", async (req, res) => {
   }
 });
 
+router.put("/editStatus", async (req, res) => {
+  try {
+    const { projectId } = req.query;
+
+    await Submission.update(
+      { acceptStatus: "Accepted" },
+      {
+        where: {
+          projectId: projectId,
+        },
+        fields: ["acceptStatus"],
+      }
+    );
+
+    res.json({ message: "Abstract accept status updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating abstract accept status" });
+  }
+});
+
 module.exports = router;

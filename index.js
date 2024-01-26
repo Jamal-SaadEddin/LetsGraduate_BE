@@ -19,7 +19,7 @@ const usersRoutes = require("./routes/users");
 const registerProjectRoutes = require("./routes/student/register_project");
 const deleteAccountRoutes = require("./routes/delete_account");
 const findMyGroupsRoutes = require("./routes/doctor/find_mygroups");
-const myGroupsSubmissionsRoutes = require("./routes/doctor/subtract_submissions");
+const abstractSubmissionsRoutes = require("./routes/doctor/subtract_submissions");
 const addCommentRoutes = require("./routes/doctor/add_comment");
 
 const app = express();
@@ -57,7 +57,7 @@ app.use("/users", usersRoutes);
 app.use("/registerProject", registerProjectRoutes);
 app.use("/deleteAccount", deleteAccountRoutes);
 app.use("/findMyGroups", findMyGroupsRoutes);
-app.use("/myGroupsSubmissions", myGroupsSubmissionsRoutes);
+app.use("/abstractSubmissions", abstractSubmissionsRoutes);
 app.use("/createComment", addCommentRoutes);
 
 // Start server

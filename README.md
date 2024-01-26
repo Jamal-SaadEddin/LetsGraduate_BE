@@ -233,7 +233,12 @@ find my groups
 page 2 abstract submissions
 
 fetch submissions for viewing or evaluating
-/myGroupsSubmissions/submissions?doctorId=1355 GET
+/abstractSubmissions/submissions?doctorId=1355 GET
+
+---
+
+update abstract submission status
+/abstractSubmissions/editStatus?projectId=1 PUT
 
 ---
 

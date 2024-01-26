@@ -232,7 +232,7 @@ find my groups
 
 page 2 abstract submissions
 
-fetch mygroup submissions
+fetch submissions for viewing or evaluating
 /myGroupsSubmissions/submissions?doctorId=1355 GET
 
 ---

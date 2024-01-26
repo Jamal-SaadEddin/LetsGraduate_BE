@@ -15,11 +15,20 @@ router.get("/submissions", async (req, res) => {
       },
     });
 
+    // Find the submissions associated with the doctorId for evaluating
+    const submissionsEvaluating = await Submission.findAll({
+      where: {
+        evaluatorId: doctorId,
+      },
+    });
+
     const projectsIds = projects.map((project) => project.dataValues);
 
     const submissions = {};
+    let index = 0;
     for (const projectId in projectsIds) {
       const projectIdValue = projectsIds[projectId].projectId;
+      index = projectId;
 
       // Find the submission associated with the projectId
       const submission = await Submission.findAll({
@@ -29,7 +38,18 @@ router.get("/submissions", async (req, res) => {
       });
 
       if (Object.keys(submission).length) {
-        submissions[projectId] = submission.map((item) => item.dataValues);
+        submissions[projectId] = submission.map((item) => ({
+          ...item.dataValues,
+          operation: "viewing",
+        }));
+      }
+    }
+
+    if (submissionsEvaluating) {
+      for (const submission in submissionsEvaluating) {
+        const submissionData = submissionsEvaluating[submission].dataValues;
+        index++;
+        submissions[index] = { ...submissionData, operation: "evaluating" };
       }
     }
 

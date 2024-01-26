@@ -80,9 +80,13 @@ async function createNotification({
       }
     } else {
       let acceptStatus;
+      let notifyButtonText = null;
       if (senderType == "student") {
         acceptStatus = "pending";
       } else {
+        if (type == "comment") {
+          notifyButtonText = "SHOW COMMENT";
+        }
         acceptStatus = null;
       }
 
@@ -95,6 +99,7 @@ async function createNotification({
         acceptStatus: acceptStatus,
         content: content,
         dateCreated: new Date().toISOString(),
+        notifyButtonText: notifyButtonText,
         senderType: senderType,
       });
     }

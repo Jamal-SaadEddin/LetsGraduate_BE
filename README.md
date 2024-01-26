@@ -234,3 +234,18 @@ page 2 abstract submissions
 
 fetch mygroup submissions
 /myGroupsSubmissions/submissions?doctorId=1355 GET
+
+---
+
+page 3 create comment
+/createComment/comment POST
+
+POST body
+
+{
+"doctorId": 1377,
+"projectId" : 2,
+"content" : "add another features on your project"
+}
+
+---

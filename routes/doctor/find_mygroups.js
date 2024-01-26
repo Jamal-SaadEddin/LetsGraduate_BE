@@ -58,7 +58,10 @@ router.get("/groups", async (req, res) => {
       });
 
       // add field students to projects and give it students as value
-      projectData["students"] = students.map((student) => student.dataValues);
+      projectData["students"] = students.map((student) => ({
+        ...student.dataValues,
+        fullName: student.fullName,
+      }));
       projectsData[project] = projectData;
     }
 

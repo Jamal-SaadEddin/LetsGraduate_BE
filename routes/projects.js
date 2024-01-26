@@ -33,8 +33,6 @@ router.put("/editTitle/:studentId", async (req, res) => {
   try {
     const { studentId } = req.params;
     const { projectTitle } = req.body;
-    console.log(studentId);
-    console.log(projectTitle);
 
     // Find the projectId associated with the studentId
     const projectId = await Partnership.findOne({

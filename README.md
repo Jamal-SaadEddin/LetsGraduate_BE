@@ -237,6 +237,11 @@ fetch submissions for viewing or evaluating
 
 ---
 
+fetch evaluating submissions details
+/evaluatingsDetails/submissions?doctorId=1355 GET
+
+---
+
 update abstract submission status
 /abstractSubmissions/editStatus?projectId=1 PUT
 

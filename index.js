@@ -21,6 +21,7 @@ const deleteAccountRoutes = require("./routes/delete_account");
 const findMyGroupsRoutes = require("./routes/doctor/find_mygroups");
 const abstractSubmissionsRoutes = require("./routes/doctor/abstract_submissions");
 const addCommentRoutes = require("./routes/doctor/add_comment");
+const evaluatingsDetailsRoutes = require("./routes/doctor/evaluatings_details");
 
 const app = express();
 app.use(cors());
@@ -59,6 +60,7 @@ app.use("/deleteAccount", deleteAccountRoutes);
 app.use("/findMyGroups", findMyGroupsRoutes);
 app.use("/abstractSubmissions", abstractSubmissionsRoutes);
 app.use("/createComment", addCommentRoutes);
+app.use("/evaluatingsDetails", evaluatingsDetailsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

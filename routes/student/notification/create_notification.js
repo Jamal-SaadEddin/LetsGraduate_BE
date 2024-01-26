@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Partnership = require("../../../models/partnership");
-const Notification = require("../../../models/notification");
-const Student = require("../../../models/student");
+const createNotification = require("../../../functions/create_notification");
 
 router.post("/notification", async (req, res) => {
   try {
@@ -11,99 +9,19 @@ router.post("/notification", async (req, res) => {
     const type = req.body.type;
     const content = req.body.content;
     const senderType = req.body.senderType;
-    const commentDate = new Date();
-    const formattedDate = commentDate.toISOString();
 
-    let projectId;
-    let senderProjectId;
-    let isRequestExisit = false;
-    if (senderType === "student") {
-      // Check if sender is within group
-      projectId = await Partnership.findOne({
-        attributes: ["projectId"],
-        where: {
-          studentId: reciverId,
-        },
-      });
-    }
+    const requestCreated = await createNotification({
+      reciverId,
+      senderId,
+      type,
+      content,
+      senderType,
+    });
 
-    if (senderType === "student" && projectId) {
-      // Find the studentsIds associated with the projectId
-      const studentsIds = await Partnership.findAll({
-        attributes: ["studentId"],
-        where: {
-          projectId: projectId.projectId,
-        },
-      });
-      for (const studentId in studentsIds) {
-        const studentIdValue = studentsIds[studentId].dataValues.studentId;
-
-        // send join request when reciver student is in group
-        await Notification.create({
-          senderId: senderId,
-          reciverId: studentIdValue,
-          readStatus: "unread",
-          type: type,
-          acceptStatus: "pending",
-          content: content,
-          dateCreated: formattedDate,
-          senderType: senderType,
-        });
-      }
-    } else if (senderType === "group") {
-      // Check if sender is within group
-      senderProjectId = await Partnership.findOne({
-        attributes: ["projectId"],
-        where: {
-          studentId: senderId,
-        },
-      });
-      console.log(senderId);
-
-      //check if sender's group sent request before
-      const validate = await Notification.findOne({
-        where: {
-          senderId: senderProjectId.projectId,
-        },
-      });
-
-      if (validate) {
-        isRequestExisit = true;
-      } else {
-        // send request to supervisor for supervising their group
-        await Notification.create({
-          senderId: senderProjectId.projectId,
-          reciverId: reciverId,
-          readStatus: "unread",
-          type: type,
-          acceptStatus: "pending",
-          content: content,
-          dateCreated: formattedDate,
-          senderType: senderType,
-        });
-      }
+    if (requestCreated) {
+      res.json({ message: "Notification created successfully" });
     } else {
-      // send join request when reciver student is single(without group)
-      await Notification.create({
-        senderId: senderId,
-        reciverId: reciverId,
-        readStatus: "unread",
-        type: type,
-        acceptStatus: "pending",
-        content: content,
-        dateCreated: formattedDate,
-        senderType: senderType,
-      });
-    }
-
-    if (isRequestExisit) {
-      res.json({
-        message: "You or your group sent request before",
-      });
-    } else {
-      res.json({
-        message: "Notification created successfully",
-      });
+      res.json({ message: "You or your group sent a request before" });
     }
   } catch (error) {
     console.error(error);

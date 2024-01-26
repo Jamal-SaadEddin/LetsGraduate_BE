@@ -260,3 +260,16 @@ get all comments on abstract
 /abstractComments/comments?id=1 GET
 
 ---
+
+page 4 edit project status
+
+/projects/projectStatus/11923604 PUT
+
+PUT body
+
+{
+"projectType": "GP1",
+"gpState" : "passed"
+}
+
+---

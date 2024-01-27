@@ -47,6 +47,7 @@ router.get("/groups", async (req, res) => {
           "email",
           "department",
           "address",
+          "projectType",
         ],
         where: {
           studentId: {
@@ -57,11 +58,44 @@ router.get("/groups", async (req, res) => {
         },
       });
 
+      let gpState;
+      const studentsData = {};
+      // get projectType current project for student
+      for (const student in students) {
+        const studentData = students[student].dataValues;
+        const studentId = studentData.studentId;
+
+        // get status of current project based on studentId
+        if (studentData.projectType == "gp1") {
+          gpState = await Student.findOne({
+            attributes: ["gp1State"],
+            where: {
+              studentId: studentId,
+            },
+          });
+          studentsData[student] = {
+            ...studentData,
+            projectStatus: gpState.gp1State,
+            fullName: students[student].fullName,
+          };
+        } else {
+          gpState = await Student.findOne({
+            attributes: ["gp2State"],
+            where: {
+              studentId: studentId,
+            },
+          });
+          studentsData[student] = {
+            ...studentData,
+            projectStatus: gpState.gp2State,
+            fullName: students[student].fullName,
+          };
+        }
+      }
+      console.log(Object.values(studentsData));
+
       // add field students to projects and give it students as value
-      projectData["students"] = students.map((student) => ({
-        ...student.dataValues,
-        fullName: student.fullName,
-      }));
+      projectData["students"] = Object.values(studentsData);
       projectsData[project] = projectData;
     }
 

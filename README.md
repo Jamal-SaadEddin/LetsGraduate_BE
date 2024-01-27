@@ -319,3 +319,33 @@ PUT body
 }
 
 ---
+
+page 7 (Accept or Decline join request)
+
+/joinResponse/response PUT
+
+1-when sender studen who will response to request is witout group
+
+PUT body
+
+{
+"senderId" : 11825033,
+"reciverId" : 11925044,
+"type" : "notifing",
+"notificationId" : 67,
+"acceptStatus" : "declined"
+}
+
+2- when sender student who will response to request is with group
+
+PUT body
+
+{
+"senderId" : 11923604,
+"reciverId" : 11925044,
+"type" : "notifing",
+"notificationId" : 67,
+"acceptStatus" : "declined"
+}
+
+---

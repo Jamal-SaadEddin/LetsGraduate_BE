@@ -23,7 +23,7 @@ async function createNotification({
       });
     }
 
-    if (senderType === "student" && projectId) {
+    if (senderType === "student" && projectId && type == "request") {
       // Find the studentsIds associated with the projectId
       const studentsIds = await Partnership.findAll({
         attributes: ["studentId"],
@@ -81,7 +81,7 @@ async function createNotification({
     } else {
       let acceptStatus;
       let notifyButtonText = null;
-      if (senderType == "student") {
+      if (senderType == "student" && type == "request") {
         acceptStatus = "pending";
       } else {
         if (type == "comment") {

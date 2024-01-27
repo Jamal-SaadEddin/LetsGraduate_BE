@@ -22,6 +22,7 @@ const findMyGroupsRoutes = require("./routes/doctor/find_mygroups");
 const abstractSubmissionsRoutes = require("./routes/doctor/abstract_submissions");
 const addCommentRoutes = require("./routes/doctor/add_comment");
 const evaluatingsDetailsRoutes = require("./routes/doctor/evaluatings_details");
+const departmentSettingsRoutes = require("./routes/doctor/department_settings");
 
 const app = express();
 app.use(cors());
@@ -61,6 +62,7 @@ app.use("/findMyGroups", findMyGroupsRoutes);
 app.use("/abstractSubmissions", abstractSubmissionsRoutes);
 app.use("/createComment", addCommentRoutes);
 app.use("/evaluatingsDetails", evaluatingsDetailsRoutes);
+app.use("/departmentSettings", departmentSettingsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

@@ -66,12 +66,12 @@ router.put("/projectStatus/:studentId", async (req, res) => {
         { gp1State: "in progress", projectType: projectType },
         { where: { studentId: studentId } }
       );
-    } else if (projectType == "GP1") {
+    } else if (projectType == "gp1") {
       await Student.update(
         { gp1State: gpState, projectType: null },
         { where: { studentId: studentId } }
       );
-    } else if (projectType == "GP2") {
+    } else if (projectType == "gp2") {
       await Student.update(
         { gp2State: gpState, projectType: null },
         { where: { studentId: studentId } }

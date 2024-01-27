@@ -273,8 +273,15 @@ page 4 edit project status
 PUT body
 
 {
-"projectType": "GP1",
+"projectType": "gp1",
 "gpState" : "passed"
 }
+
+---
+
+page 5 department settings
+
+get all info about department
+/departmentSettings/settings?doctorId=1355
 
 ---

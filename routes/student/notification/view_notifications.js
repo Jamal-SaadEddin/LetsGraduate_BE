@@ -54,7 +54,7 @@ router.get("/notifications", async (req, res) => {
             });
             editedNotifications[notification] = {
               ...notificationData.dataValues,
-              senderName: "DR." + sender.fullName,
+              senderName: "Dr." + sender.fullName,
               notificationDuration: getDuration(date),
             };
           } else {
@@ -147,6 +147,7 @@ router.get("/notifications", async (req, res) => {
         editedNotifications[notification] = {
           ...notificationData.dataValues,
           senderName: studentName.fullName,
+          notificationDuration: getDuration(date),
         };
       }
     }

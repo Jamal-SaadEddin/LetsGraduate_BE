@@ -302,3 +302,20 @@ PUT body
 }
 
 ---
+
+page 6 (Accept or Decline supervision request)
+
+response on supervision request
+/supervisionResponse/response PUT
+
+PUT body
+
+{
+"senderId" : 1355,
+"reciverId" : 1,
+"type" : "notifing",
+"notificationId" : 82,
+"acceptStatus" : "declined"
+}
+
+---

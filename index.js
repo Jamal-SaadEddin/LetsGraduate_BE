@@ -23,6 +23,7 @@ const abstractSubmissionsRoutes = require("./routes/doctor/abstract_submissions"
 const addCommentRoutes = require("./routes/doctor/add_comment");
 const evaluatingsDetailsRoutes = require("./routes/doctor/evaluatings_details");
 const departmentSettingsRoutes = require("./routes/doctor/department_settings");
+const supervisionResponseRoutes = require("./routes/doctor/supervision_response");
 
 const app = express();
 app.use(cors());
@@ -63,6 +64,7 @@ app.use("/abstractSubmissions", abstractSubmissionsRoutes);
 app.use("/createComment", addCommentRoutes);
 app.use("/evaluatingsDetails", evaluatingsDetailsRoutes);
 app.use("/departmentSettings", departmentSettingsRoutes);
+app.use("/supervisionResponse", supervisionResponseRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

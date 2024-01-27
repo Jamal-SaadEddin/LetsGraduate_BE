@@ -54,7 +54,7 @@ router.get("/notifications", async (req, res) => {
             });
             editedNotifications[notification] = {
               ...notificationData.dataValues,
-              senderName: "Dr." + sender.fullName,
+              senderName: "Dr. " + sender.fullName,
               notificationDuration: getDuration(date),
             };
           } else {

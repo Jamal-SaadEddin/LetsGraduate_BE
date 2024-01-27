@@ -4,6 +4,7 @@ const Partnership = require("../../models/partnership");
 const Comment = require("../../models/comment");
 const Project = require("../../models/project");
 const Doctor = require("../../models/doctor");
+const getDuration = require("../../functions/find_notification_duration");
 
 router.get("/comments", async (req, res) => {
   try {
@@ -44,6 +45,8 @@ router.get("/comments", async (req, res) => {
     const commentsData = {};
     for (const comment in comments) {
       const commentData = comments[comment];
+      let commentDate = commentData.dataValues.dateCreated;
+      let date = new Date(commentDate);
       for (const supervisorId in supervisorsIds) {
         const supervisorIdValue =
           supervisorsIds[supervisorId].dataValues.doctorId;
@@ -57,12 +60,14 @@ router.get("/comments", async (req, res) => {
           });
           commentsData[comment] = {
             ...commentData.dataValues,
-            sender: "DR. " + sender.fullName,
+            sender: "Dr. " + sender.fullName,
+            commentDuration: getDuration(date),
           };
         } else {
           commentsData[comment] = {
             ...commentData.dataValues,
             sender: "Projects Committee",
+            commentDuration: getDuration(date),
           };
         }
       }

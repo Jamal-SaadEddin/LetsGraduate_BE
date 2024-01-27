@@ -285,3 +285,20 @@ get all info about department
 /departmentSettings/settings?doctorId=1355
 
 ---
+
+update department settings
+/departmentSettings/editSettings PUT
+
+PUT body
+
+{
+"departmentName" : "Computer Engineering",
+"maxNoOfStuPerProj" : 3,
+"maxNoOfProjPerDoct" : 5,
+"maxNoOfStuPerDoct" : 10,
+"currentPeriod" : "vacation",
+"supervisingDoctors": ["Abdallah Rashed - 1244","Mohammed Handai - 1574"],
+"projectsCommitteeMembers": ["Abdallah Rashed - 1244","Mohammed Handai - 1574"]
+}
+
+---

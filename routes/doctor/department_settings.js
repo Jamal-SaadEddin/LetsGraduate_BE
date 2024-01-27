@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const Submission = require("../../models/submission");
 const Student = require("../../models/student");
 const Doctor = require("../../models/doctor");
 const Department = require("../../models/department");
+const Sequelize = require("sequelize");
 
 router.get("/settings", async (req, res) => {
   try {
@@ -101,6 +101,121 @@ router.get("/settings", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching submissions" });
+  }
+});
+
+router.put("/editSettings", async (req, res) => {
+  try {
+    const departmentName = req.body.departmentName;
+    const maxNoOfStuPerProj = req.body.maxNoOfStuPerProj;
+    const maxNoOfProjPerDoct = req.body.maxNoOfProjPerDoct;
+    const maxNoOfStuPerDoct = req.body.maxNoOfStuPerDoct;
+    const currentPeriod = req.body.currentPeriod;
+    const supervisingDoctors = req.body.supervisingDoctors;
+    const projectsCommitteeMembers = req.body.projectsCommitteeMembers;
+
+    // update department setting based on department name
+    await Department.update(
+      {
+        maxNoOfStuPerProj: maxNoOfStuPerProj,
+        maxNoOfProjPerDoct: maxNoOfProjPerDoct,
+        maxNoOfStuPerDoct: maxNoOfStuPerDoct,
+        currentPeriod: currentPeriod,
+      },
+      {
+        where: {
+          departmentName: departmentName,
+        },
+        fields: [
+          "maxNoOfStuPerProj",
+          "maxNoOfProjPerDoct",
+          "maxNoOfStuPerDoct",
+          "currentPeriod",
+        ],
+      }
+    );
+
+    // get ids of supervisors
+    const supervisorsIds = [];
+    for (const supervisor in supervisingDoctors) {
+      const supervisorData = supervisingDoctors[supervisor];
+      const data = supervisorData.split(" - ");
+      const id = parseInt(data[1]);
+      supervisorsIds[supervisor] = id;
+    }
+
+    // get ids of supervisors
+    const projectCommitteIds = [];
+    for (const projectCommitte in projectsCommitteeMembers) {
+      const projectCommitteData = projectsCommitteeMembers[projectCommitte];
+      const data = projectCommitteData.split(" - ");
+      const id = parseInt(data[1]);
+      projectCommitteIds[projectCommitte] = id;
+    }
+
+    console.log(supervisorsIds);
+    console.log(projectCommitteIds);
+
+    // set supervisors
+    await Doctor.update(
+      {
+        isSupervisor: true,
+      },
+      {
+        where: {
+          doctorId: { [Sequelize.Op.in]: supervisorsIds },
+        },
+        fields: ["isSupervisor"],
+      }
+    );
+
+    // set other doctors not supervisors
+    await Doctor.update(
+      {
+        isSupervisor: false,
+      },
+      {
+        where: {
+          doctorId: { [Sequelize.Op.notIn]: supervisorsIds },
+        },
+        fields: ["isSupervisor"],
+      }
+    );
+
+    // update projects Committe
+    await Doctor.update(
+      {
+        isProjectsCommitteeMember: true,
+      },
+      {
+        where: {
+          doctorId: {
+            [Sequelize.Op.in]: projectCommitteIds,
+          },
+        },
+        fields: ["isProjectsCommitteeMember"],
+      }
+    );
+
+    // set other doctors not projects Committe
+    await Doctor.update(
+      {
+        isProjectsCommitteeMember: false,
+      },
+      {
+        where: {
+          doctorId: {
+            [Sequelize.Op.notIn]: projectCommitteIds,
+          },
+        },
+        fields: ["isProjectsCommitteeMember"],
+      }
+    );
+
+    res.json({ message: "Department settings updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating department settings" });
   }
 });
 

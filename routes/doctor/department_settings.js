@@ -28,6 +28,7 @@ router.get("/settings", async (req, res) => {
     const registeredCount = await Student.count({
       where: {
         isWithGroup: true,
+        department: departmentName.department,
       },
     });
 
@@ -35,6 +36,7 @@ router.get("/settings", async (req, res) => {
     const supervisorsCount = await Doctor.count({
       where: {
         isSupervisor: true,
+        department: departmentName.department,
       },
     });
 
@@ -42,6 +44,7 @@ router.get("/settings", async (req, res) => {
     const projectCommitteeCount = await Doctor.count({
       where: {
         isProjectsCommitteeMember: true,
+        department: departmentName.department,
       },
     });
 
@@ -50,6 +53,7 @@ router.get("/settings", async (req, res) => {
       attributes: ["firstName", "lastName", "fullName", "doctorId"],
       where: {
         isProjectsCommitteeMember: true,
+        department: departmentName.department,
       },
     });
 
@@ -65,6 +69,7 @@ router.get("/settings", async (req, res) => {
       attributes: ["firstName", "lastName", "fullName", "doctorId"],
       where: {
         isSupervisor: true,
+        department: departmentName.department,
       },
     });
 
@@ -78,6 +83,9 @@ router.get("/settings", async (req, res) => {
     // Find names and ids for all doctors
     let allDoctors = await Doctor.findAll({
       attributes: ["firstName", "lastName", "fullName", "doctorId"],
+      where: {
+        department: departmentName.department,
+      },
     });
 
     let arrayOfNamesAndIds3 = [];
@@ -164,6 +172,7 @@ router.put("/editSettings", async (req, res) => {
       {
         where: {
           doctorId: { [Sequelize.Op.in]: supervisorsIds },
+          department: departmentName,
         },
         fields: ["isSupervisor"],
       }
@@ -177,6 +186,7 @@ router.put("/editSettings", async (req, res) => {
       {
         where: {
           doctorId: { [Sequelize.Op.notIn]: supervisorsIds },
+          department: departmentName,
         },
         fields: ["isSupervisor"],
       }
@@ -192,6 +202,7 @@ router.put("/editSettings", async (req, res) => {
           doctorId: {
             [Sequelize.Op.in]: projectCommitteIds,
           },
+          department: departmentName,
         },
         fields: ["isProjectsCommitteeMember"],
       }
@@ -207,6 +218,7 @@ router.put("/editSettings", async (req, res) => {
           doctorId: {
             [Sequelize.Op.notIn]: projectCommitteIds,
           },
+          department: departmentName,
         },
         fields: ["isProjectsCommitteeMember"],
       }

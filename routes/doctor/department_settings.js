@@ -27,7 +27,6 @@ router.get("/settings", async (req, res) => {
     // Find number of registerd students
     const registeredCount = await Student.count({
       where: {
-        isWithGroup: true,
         department: departmentName.department,
       },
     });

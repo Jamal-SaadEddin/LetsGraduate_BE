@@ -30,6 +30,39 @@ router.get("/fetchProject/:studentId", async (req, res) => {
   }
 });
 
+router.get("/hasSupervisor/:studentId", async (req, res) => {
+  try {
+    const { studentId } = req.params;
+
+    // Find the projectId associated with the studentId
+    const projectId = await Partnership.findOne({
+      attributes: ["projectId"],
+      where: {
+        studentId: studentId,
+      },
+    });
+
+    // Check if the student has supervisor or no
+    const project = await Project.findOne({
+      attributes: ["doctorId"],
+      where: {
+        projectId: projectId.projectId,
+      },
+    });
+
+    if (project.doctorId) {
+      res.json({ message: "You have supervisor" });
+    } else {
+      res.json({ message: "You don't have supervisor" });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Error in checking if student has supervisor" });
+  }
+});
+
 router.put("/editTitle/:studentId", async (req, res) => {
   try {
     const { studentId } = req.params;

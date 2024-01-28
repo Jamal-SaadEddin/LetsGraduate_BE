@@ -41,7 +41,7 @@ async function createNotification({
           reciverId: studentIdValue,
           readStatus: "unread",
           type: type,
-          acceptStatus: "pending",
+          acceptStatus: "pendingJoin",
           content: content,
           dateCreated: new Date().toISOString(),
           senderType: senderType,

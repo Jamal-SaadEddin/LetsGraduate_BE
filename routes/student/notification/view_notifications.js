@@ -137,18 +137,37 @@ router.get("/notifications", async (req, res) => {
           }
         }
       } else {
-        // // Find sender name associated with the senderId
+        // check if sender is doctor or student
+
+        // Find sender name associated with the senderId
         const studentName = await Student.findOne({
           attributes: ["firstName", "lastName", "fullName"],
           where: {
-            studentId: notificationData.senderId,
+            studentId: notificationData.dataValues.senderId,
           },
         });
-        editedNotifications[notification] = {
-          ...notificationData.dataValues,
-          senderName: studentName.fullName,
-          notificationDuration: getDuration(date),
-        };
+
+        if (studentName) {
+          editedNotifications[notification] = {
+            ...notificationData.dataValues,
+            senderName: studentName.fullName,
+            notificationDuration: getDuration(date),
+          };
+        } else {
+          // Find sender name associated with the doctorId
+          const doctorName = await Doctor.findOne({
+            attributes: ["firstName", "lastName", "fullName"],
+            where: {
+              doctorId: notificationData.dataValues.senderId,
+            },
+          });
+
+          editedNotifications[notification] = {
+            ...notificationData.dataValues,
+            doctorName: "Dr. " + doctorName.fullName,
+            notificationDuration: getDuration(date),
+          };
+        }
       }
     }
 

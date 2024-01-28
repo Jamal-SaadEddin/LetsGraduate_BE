@@ -38,7 +38,8 @@ router.put("/response", async (req, res) => {
     if (acceptStatus == "accepted") {
       content = "accepted to supervise your group this semester";
     } else {
-      content = " best of luck finding the perfect supervisor!";
+      content =
+        "Unfortunately, I'm unable to supervise your graduation project currently. Your understanding is appreciated. Thank you.";
     }
 
     let requestCreated;

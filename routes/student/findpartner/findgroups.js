@@ -4,6 +4,7 @@ const Student = require("../../../models/student");
 const Sequelize = require("sequelize");
 const Partnership = require("../../../models/partnership");
 const Project = require("../../../models/project");
+const Department = require("../../../models/department");
 
 router.get("/findGroups", async (req, res) => {
   try {
@@ -18,9 +19,34 @@ router.get("/findGroups", async (req, res) => {
       },
     });
 
-    const groupsIds = {};
-    const projectsIdsList = projectsIds.map((project) => project.projectId);
+    // Check if group is full to exclude it
+    const counts = await Department.findOne({
+      attributes: ["maxNoOfStuPerProj"],
+      where: {
+        departmentName: department,
+      },
+    });
 
+    const maxNumOfMembers = counts.maxNoOfStuPerProj;
+
+    const projectsIdsList = [];
+    for (const projectId in projectsIds) {
+      const projectIdValue = projectsIds[projectId].dataValues.projectId;
+
+      // Count group members based on projectId
+      const membersCount = await Partnership.count({
+        where: {
+          projectId: projectIdValue,
+        },
+      });
+
+      // add just not full groups
+      if (membersCount < maxNumOfMembers) {
+        projectsIdsList[projectId] = projectIdValue;
+      }
+    }
+
+    const groupsIds = {};
     // Fetch groups IDs based on the retrieved projectsIds
     for (const projectId of projectsIdsList) {
       const studentsIds = await Partnership.findAll({
@@ -62,6 +88,7 @@ router.get("/findGroups", async (req, res) => {
     }
 
     res.json(Object.values(groupsData));
+    res.json("ok");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching groups data" });

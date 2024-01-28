@@ -29,7 +29,7 @@ delete prerequisite DELETE
 page 2 (Find Partners)
 
 fetch students with groups
-/findPartners1/findGroups?department=Computer%20Engineering&projectType=gp1 GET
+/findPartners1/findGroups?department=Computer%20Engineering&projectType=gp2 GET
 
 ---
 

@@ -164,7 +164,7 @@ router.get("/notifications", async (req, res) => {
 
           editedNotifications[notification] = {
             ...notificationData.dataValues,
-            doctorName: "Dr. " + doctorName.fullName,
+            senderName: "Dr. " + doctorName.fullName,
             notificationDuration: getDuration(date),
           };
         }

@@ -354,3 +354,8 @@ mark all read status as read
 /allReadstatus/readstatus?userId=11923604 PUT
 
 ---
+
+check if student has supervisor
+/projects/hasSupervisor/11922022 GET
+
+---

@@ -60,6 +60,7 @@ async function createNotification({
       const validate = await Notification.findOne({
         where: {
           senderId: senderProjectId.projectId,
+          reciverId: reciverId,
         },
       });
 

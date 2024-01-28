@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const createNotification = require("../../../functions/create_notification");
+const createNotification = require("../../functions/create_notification");
 
 router.post("/notification", async (req, res) => {
   try {

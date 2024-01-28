@@ -73,7 +73,7 @@ async function createNotification({
           reciverId: reciverId,
           readStatus: "unread",
           type: type,
-          acceptStatus: "pending",
+          acceptStatus: "pendingSupervise",
           content: content,
           dateCreated: new Date().toISOString(),
           senderType: senderType,
@@ -83,7 +83,7 @@ async function createNotification({
       let acceptStatus;
       let notifyButtonText = null;
       if (senderType == "student" && type == "request") {
-        acceptStatus = "pending";
+        acceptStatus = "pendingJoin";
       } else {
         if (type == "comment") {
           notifyButtonText = "SHOW COMMENT";

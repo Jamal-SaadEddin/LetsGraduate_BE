@@ -3,6 +3,7 @@ const router = express.Router();
 const Notification = require("../../models/notification");
 const Partnership = require("../../models/partnership");
 const createNotification = require("../../functions/create_notification");
+const Sequelize = require("sequelize");
 
 router.put("/response", async (req, res) => {
   try {
@@ -37,6 +38,18 @@ router.put("/response", async (req, res) => {
     let content;
     if (acceptStatus == "accepted") {
       content = "accepted to supervise your group this semester";
+
+      // delete other requests that sent to other doctors
+      await Notification.destroy({
+        where: {
+          reciverId: reciverId,
+          type: "request",
+          senderType: "group",
+          reciverId: {
+            [Sequelize.Op.ne]: senderId,
+          },
+        },
+      });
     } else {
       content =
         "Unfortunately, I'm unable to supervise your graduation project currently. Your understanding is appreciated. Thank you.";

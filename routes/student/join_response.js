@@ -29,7 +29,8 @@ router.put("/response", async (req, res) => {
       content = "welcome to join our group";
       messageContent = "is now new member in our group";
     } else {
-      content = " best of luck finding the perfect group!";
+      content =
+        "Apologies, we won't be able to include you in our project group. Thank you for your understanding";
     }
 
     // when the student who receive join request within group

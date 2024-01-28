@@ -84,6 +84,8 @@ async function createNotification({
       let notifyButtonText = null;
       if (senderType == "student" && type == "request") {
         acceptStatus = "pendingJoin";
+      } else if (type == "merge") {
+        acceptStatus = "pendingMerge";
       } else {
         if (type == "comment") {
           notifyButtonText = "SHOW COMMENT";

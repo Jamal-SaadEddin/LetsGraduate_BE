@@ -27,6 +27,7 @@ const supervisionResponseRoutes = require("./routes/doctor/supervision_response"
 const joinResponeRoutes = require("./routes/student/join_response");
 const markAllReadstatusRoutes = require("./routes/notification/mark_all_readstatus");
 const allGroupsRoutes = require("./routes/doctor/allgroups");
+const mergeRoutes = require("./routes/doctor/merge");
 
 const app = express();
 app.use(cors());
@@ -71,6 +72,7 @@ app.use("/supervisionResponse", supervisionResponseRoutes);
 app.use("/joinResponse", joinResponeRoutes);
 app.use("/allReadstatus", markAllReadstatusRoutes);
 app.use("/allGroups", allGroupsRoutes);
+app.use("/merge", mergeRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

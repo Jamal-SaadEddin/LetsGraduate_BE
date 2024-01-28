@@ -366,3 +366,18 @@ get all groups
 /allGroups/groups GET
 
 ---
+
+request to merge two groups
+/merge/request POST
+
+POST body
+
+{
+"reciverId": 1495,
+"senderId" : 1355,
+"type" : "merge",
+"content" : "is requesting to merge his/her group (132) with your group (745)",
+"senderType" : "doctor"
+}
+
+---

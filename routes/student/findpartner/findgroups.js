@@ -88,7 +88,6 @@ router.get("/findGroups", async (req, res) => {
     }
 
     res.json(Object.values(groupsData));
-    res.json("ok");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching groups data" });

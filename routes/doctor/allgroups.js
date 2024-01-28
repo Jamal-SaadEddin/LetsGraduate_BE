@@ -7,17 +7,16 @@ const Project = require("../../models/project");
 
 router.get("/groups", async (req, res) => {
   try {
-    const { doctorId } = req.query;
-
     // Find the projectId associated with the studentId
     const projects = await Project.findAll({
-      attributes: ["projectId", "projectTitle"],
+      attributes: ["projectId", "projectTitle", "doctorId"],
     });
 
     // rename columns projectId to id and projectTitle to title
     const formattedProjects = projects.map((project) => ({
       id: project.projectId,
       title: project.projectTitle,
+      doctorId: project.doctorId,
     }));
 
     const projectsData = {};

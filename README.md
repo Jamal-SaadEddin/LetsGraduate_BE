@@ -359,3 +359,10 @@ check if student has supervisor
 /projects/hasSupervisor/11922022 GET
 
 ---
+
+page 7 (Merge Groups)
+
+get all groups
+/allGroups/groups GET
+
+---

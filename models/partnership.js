@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
 
-const Prerequisite = sequelize.define(
+const Partnership = sequelize.define(
   "partnerships",
   {
     studentId: {
@@ -17,4 +17,4 @@ const Prerequisite = sequelize.define(
   }
 );
 
-module.exports = Prerequisite;
+module.exports = Partnership;

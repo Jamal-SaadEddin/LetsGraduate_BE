@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Notification = require("../../models/notification");
 const Partnership = require("../../models/partnership");
+const Student = require("../../models/student");
+const Project = require("../../models/project");
 const createNotification = require("../../functions/create_notification");
 
 router.put("/response", async (req, res) => {
@@ -105,6 +107,52 @@ router.put("/response", async (req, res) => {
         }
       );
 
+      const studentsIds = [senderId, reciverId];
+      // get project type and department
+      const student = await Student.findOne({
+        attributes: ["projectType", "department"],
+        where: {
+          studentId: reciverId,
+        },
+      });
+
+      let projectId1;
+      // create new group
+      const newProject = await Project.create({
+        projectTitle: "project title " + reciverId,
+        projectType: student.projectType,
+        department: student.department,
+      });
+
+      //get projectId
+      const project = await Project.findOne({
+        attributes: ["projectId"],
+        where: {
+          projectTitle: "project title " + reciverId,
+        },
+      });
+
+      for (const studentId of studentsIds) {
+        // add them to partnership table
+        const newGroup = await Partnership.create({
+          studentId: studentId,
+          projectId: project.projectId,
+        });
+
+        // update isWithGroup column
+        await Student.update(
+          {
+            isWithGroup: true,
+          },
+          {
+            where: {
+              studentId: studentId,
+            },
+            fields: ["isWithGroup"],
+          }
+        );
+      }
+
       // Send response to student
       const requestCreated = await createNotification({
         reciverId,
@@ -115,10 +163,10 @@ router.put("/response", async (req, res) => {
       });
 
       if (requestCreated) {
-        res.json({ message: "Supervision request edited successfully" });
+        res.json({ message: "Join request edited successfully" });
       } else {
         res.json({
-          message: "Supervision request doesn't edited successfully",
+          message: "Join request doesn't edited successfully",
         });
       }
     }

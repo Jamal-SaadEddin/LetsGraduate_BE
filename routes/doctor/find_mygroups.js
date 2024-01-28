@@ -9,7 +9,7 @@ router.get("/groups", async (req, res) => {
   try {
     const { doctorId } = req.query;
 
-    // Find the projectId associated with the studentId
+    // Find the projectId and projectTitle associated with the doctorId
     const projects = await Project.findAll({
       attributes: ["projectId", "projectTitle"],
       where: {

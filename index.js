@@ -25,6 +25,7 @@ const evaluatingsDetailsRoutes = require("./routes/doctor/evaluatings_details");
 const departmentSettingsRoutes = require("./routes/doctor/department_settings");
 const supervisionResponseRoutes = require("./routes/doctor/supervision_response");
 const joinResponeRoutes = require("./routes/student/join_response");
+const markAllReadstatusRoutes = require("./routes/notification/mark_all_readstatus");
 
 const app = express();
 app.use(cors());
@@ -66,7 +67,7 @@ app.use("/createComment", addCommentRoutes);
 app.use("/evaluatingsDetails", evaluatingsDetailsRoutes);
 app.use("/departmentSettings", departmentSettingsRoutes);
 app.use("/supervisionResponse", supervisionResponseRoutes);
-app.use("/joinResponse", joinResponeRoutes);
+app.use("/allReadstatus", markAllReadstatusRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

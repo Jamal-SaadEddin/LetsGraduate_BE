@@ -349,3 +349,8 @@ PUT body
 }
 
 ---
+
+mark all read status as read
+/allReadstatus/readstatus?userId=11923604 PUT
+
+---

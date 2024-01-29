@@ -381,3 +381,18 @@ POST body
 }
 
 ---
+
+response to merge two groups
+/merge/response POST
+
+POST body
+
+{
+"senderId" : 1495,
+"reciverId" : 1355,
+"type" : "notifing",
+"notificationId" : 126,
+"acceptStatus" : "declined"
+}
+
+---

@@ -26,8 +26,9 @@ router.put("/response", async (req, res) => {
     let content;
     let messageContent;
     if (acceptStatus == "accepted") {
-      content = "welcome to join our group";
-      messageContent = "is now new member in our group";
+      content =
+        "accepted your partnership request, you're now a member in their group";
+      messageContent = "is now new member in your group";
     } else {
       content =
         "Apologies, we won't be able to include you in our project group. Thank you for your understanding";
@@ -86,10 +87,10 @@ router.put("/response", async (req, res) => {
         });
       }
       if (requestCreated1 && requestCreated2) {
-        res.json({ message: "Supervision request edited successfully" });
+        res.json({ message: "Join request edited successfully" });
       } else {
         res.json({
-          message: "Supervision request doesn't edited successfully",
+          message: "Join request doesn't edited successfully",
         });
       }
     }
@@ -173,7 +174,7 @@ router.put("/response", async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error processing supervision request" });
+    res.status(500).json({ message: "Error processing join request" });
   }
 });
 

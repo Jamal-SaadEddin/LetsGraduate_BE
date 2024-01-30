@@ -44,25 +44,6 @@ router.put("/response", async (req, res) => {
         },
       });
 
-      // update isWithGroup column
-      await Student.update(
-        {
-          isWithGroup: true,
-        },
-        {
-          where: {
-            studentId: reciverId,
-          },
-          fields: ["isWithGroup"],
-        }
-      );
-
-      // add the student to the partnership table
-      const newGroup = await Partnership.create({
-        studentId: reciverId,
-        projectId: projectId.projectId,
-      });
-
       let requestCreated1;
       let requestCreated2;
 
@@ -104,6 +85,25 @@ router.put("/response", async (req, res) => {
           content: messageContent,
           senderType: senderType,
         });
+
+        // update isWithGroup column
+        await Student.update(
+          {
+            isWithGroup: true,
+          },
+          {
+            where: {
+              studentId: reciverId,
+            },
+            fields: ["isWithGroup"],
+          }
+        );
+
+        // add the student to the partnership table
+        const newGroup = await Partnership.create({
+          studentId: reciverId,
+          projectId: projectId.projectId,
+        });
       }
       if (requestCreated1 && requestCreated2) {
         res.json({ message: "Join request edited successfully" });
@@ -137,41 +137,43 @@ router.put("/response", async (req, res) => {
         },
       });
 
-      let projectId1;
-      // create new group
-      const newProject = await Project.create({
-        projectTitle: "project title " + reciverId,
-        projectType: student.projectType,
-        department: student.department,
-      });
-
-      //get projectId
-      const project = await Project.findOne({
-        attributes: ["projectId"],
-        where: {
+      if (acceptStatus == "accepted") {
+        let projectId1;
+        // create new group
+        const newProject = await Project.create({
           projectTitle: "project title " + reciverId,
-        },
-      });
-
-      for (const studentId of studentsIds) {
-        // add them to partnership table
-        const newGroup = await Partnership.create({
-          studentId: studentId,
-          projectId: project.projectId,
+          projectType: student.projectType,
+          department: student.department,
         });
 
-        // update isWithGroup column
-        await Student.update(
-          {
-            isWithGroup: true,
+        //get projectId
+        const project = await Project.findOne({
+          attributes: ["projectId"],
+          where: {
+            projectTitle: "project title " + reciverId,
           },
-          {
-            where: {
-              studentId: studentId,
+        });
+
+        for (const studentId of studentsIds) {
+          // add them to partnership table
+          const newGroup = await Partnership.create({
+            studentId: studentId,
+            projectId: project.projectId,
+          });
+
+          // update isWithGroup column
+          await Student.update(
+            {
+              isWithGroup: true,
             },
-            fields: ["isWithGroup"],
-          }
-        );
+            {
+              where: {
+                studentId: studentId,
+              },
+              fields: ["isWithGroup"],
+            }
+          );
+        }
       }
 
       // Send response to student

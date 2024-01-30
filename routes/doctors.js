@@ -23,15 +23,15 @@ router.get("/findMySupervisorOrSupervisors", async (req, res) => {
     }
 
     // Fetch doctor IDs based on the retrieved projectId
-    const doctorsIds = await Project.findAll({
-      attributes: ["doctorId"],
+    const doctor = await Project.findOne({
+      attributes: ["doctorId", "mergedProjectId"],
       where: {
         projectId: projectId.projectId,
       },
     });
 
     // Retrieve doctor information using the doctor IDs
-    const doctors = await Doctor.findAll({
+    const doctor1 = await Doctor.findOne({
       attributes: [
         "firstName",
         "lastName",
@@ -41,15 +41,38 @@ router.get("/findMySupervisorOrSupervisors", async (req, res) => {
         "mobileNumber",
       ],
       where: {
-        doctorId: {
-          [Sequelize.Op.in]: Sequelize.literal(
-            `(${doctorsIds.map((item) => item.doctorId).join(",")})`
-          ),
-        },
+        doctorId: doctor.doctorId,
       },
     });
 
-    res.json(doctors);
+    if (doctor.mergedProjectId) {
+      const doctorId2 = await Project.findOne({
+        attributes: ["doctorId"],
+        where: {
+          mergedProjectId: doctor.mergedProjectId,
+          projectId: { [Sequelize.Op.ne]: projectId.projectId },
+        },
+      });
+
+      // Retrieve doctor information using the doctor IDs
+      const doctor2 = await Doctor.findOne({
+        attributes: [
+          "firstName",
+          "lastName",
+          "fullName",
+          "email",
+          "department",
+          "mobileNumber",
+        ],
+        where: {
+          doctorId: doctorId2.doctorId,
+        },
+      });
+      const allDoctors = { doctor1, doctor2 };
+      res.json(Object.values(allDoctors));
+    } else {
+      res.json(doctor1);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching partners" });

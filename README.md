@@ -34,7 +34,7 @@ fetch students with groups
 ---
 
 fetch students without groups
-/findPartners2/studentsNotJoined?department=Computer%20Engineering&projectType=gp1 GET
+/findPartners2/studentsNotJoined?studentId=11925044 GET
 
 join group
 /createNotification/notification POST

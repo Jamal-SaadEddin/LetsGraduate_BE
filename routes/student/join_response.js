@@ -44,6 +44,25 @@ router.put("/response", async (req, res) => {
         },
       });
 
+      // update isWithGroup column
+      await Student.update(
+        {
+          isWithGroup: true,
+        },
+        {
+          where: {
+            studentId: reciverId,
+          },
+          fields: ["isWithGroup"],
+        }
+      );
+
+      // add the student to the partnership table
+      const newGroup = await Partnership.create({
+        studentId: reciverId,
+        projectId: projectId.projectId,
+      });
+
       let requestCreated1;
       let requestCreated2;
 

@@ -86,6 +86,7 @@ async function createNotification({
         acceptStatus = "pendingJoin";
       } else if (type == "merge") {
         acceptStatus = "pendingMerge";
+        notifyButtonText = "SHOW MORE DETAILS";
       } else {
         if (type == "comment") {
           notifyButtonText = "SHOW COMMENT";

@@ -5,6 +5,7 @@ const User = require("../../models/user");
 const Student = require("../../models/student");
 const Partnership = require("../../models/partnership");
 const Doctor = require("../../models/doctor");
+const Department = require("../../models/department");
 
 router.get("/login", async (req, res) => {
   try {
@@ -39,6 +40,15 @@ router.get("/login", async (req, res) => {
           studentId: userId,
         },
       });
+
+      // get current period
+      const department = await Department.findOne({
+        attributes: ["currentPeriod"],
+        where: {
+          departmentName: studentData.department,
+        },
+      });
+
       userData = {
         id: userId,
         firstName: studentData.firstName,
@@ -48,6 +58,7 @@ router.get("/login", async (req, res) => {
         address: studentData.address,
         mobileNumber: studentData.mobileNumber,
         type: "student",
+        currentPeriod: department.currentPeriod,
         info: {
           projectId: projectId.projectId,
           projectOneState: studentData.gp1State,
@@ -61,6 +72,14 @@ router.get("/login", async (req, res) => {
         },
       });
 
+      // get current period
+      const department = await Department.findOne({
+        attributes: ["currentPeriod"],
+        where: {
+          departmentName: doctorData.department,
+        },
+      });
+
       userData = {
         id: userId,
         firstName: doctorData.firstName,
@@ -70,6 +89,7 @@ router.get("/login", async (req, res) => {
         address: doctorData.address,
         mobileNumber: doctorData.mobileNumber,
         type: "doctor",
+        currentPeriod: department.currentPeriod,
         info: {
           isSupervisor: doctorData.isSupervisor,
           isDepartmentManager: doctorData.isDepartmentManager,

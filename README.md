@@ -413,3 +413,16 @@ view doctor profile data
 /doctors/viewDoctorInfo?doctorId=1355 GET
 
 ---
+
+update doctor Profile data
+/doctors/updateProfile PUT
+
+PUT body
+
+{
+"doctorId": 1355,
+"firstName" : "Manar",
+"lastName" : "Qamhieh",
+"address" : "Jenin",
+"mobileNumber" :"0595493759"
+}

@@ -118,25 +118,25 @@ router.get("/viewDoctorInfo", async (req, res) => {
 
 router.put("/updateProfile", async (req, res) => {
   try {
-    const studentId = req.body.studentId;
-    const studentUpdateData = {
+    const doctorId = req.body.doctorId;
+    const doctorUpdateData = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       address: req.body.address,
       mobileNumber: req.body.mobileNumber,
     };
 
-    await Student.update(studentUpdateData, {
+    await Doctor.update(doctorUpdateData, {
       where: {
-        studentId: studentId,
+        doctorId: doctorId,
       },
       fields: ["firstName", "lastName", "address", "mobileNumber"],
     });
 
-    res.json({ message: "Student data updated successfully" });
+    res.json({ message: "Doctor data updated successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error updating student data" });
+    res.status(500).json({ message: "Error updating doctor data" });
   }
 });
 

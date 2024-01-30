@@ -75,6 +75,14 @@ router.get("/findMyPartners", async (req, res) => {
       return; // Exit early if no partnership found
     }
 
+    // check if the group is merged
+    const mergedProjectId = await Project.findOne({
+      attributes: ["mergedProjectId"],
+      where: {
+        projectId: projectId.projectId,
+      },
+    });
+
     // Fetch student IDs based on the retrieved projectId
     const studentsIds = await Partnership.findAll({
       attributes: ["studentId"],
@@ -83,28 +91,77 @@ router.get("/findMyPartners", async (req, res) => {
       },
     });
 
-    // Retrieve student information using the student IDs
-    const students = await Student.findAll({
-      attributes: [
-        "studentId",
-        "firstName",
-        "lastName",
-        "fullName",
-        "email",
-        "department",
-        "address",
-        "mobileNumber",
-      ],
-      where: {
-        studentId: {
-          [Sequelize.Op.in]: Sequelize.literal(
-            `(${studentsIds.map((item) => item.studentId).join(",")})`
-          ),
-        },
-      },
-    });
+    const ids1 = studentsIds.map((student) => student.dataValues.studentId);
 
-    res.json(students);
+    let allStudents = {};
+    let index = 0;
+    for (const id in ids1) {
+      const studentId = ids1[id];
+      const students = await Student.findOne({
+        attributes: [
+          "studentId",
+          "firstName",
+          "lastName",
+          "fullName",
+          "email",
+          "department",
+          "address",
+          "mobileNumber",
+        ],
+        where: {
+          studentId: studentId,
+        },
+      });
+      allStudents[id] = students.dataValues;
+      index = id;
+    }
+
+    if (mergedProjectId.mergedProjectId) {
+      let twoMergedGroups = {};
+      // get projectId for other merged group
+      const projectId2 = await Project.findOne({
+        attributes: ["projectId"],
+        where: {
+          mergedProjectId: mergedProjectId.mergedProjectId,
+          projectId: { [Sequelize.Op.ne]: projectId.projectId },
+        },
+      });
+
+      // Fetch student IDs based on the retrieved projectId
+      const studentsIds2 = await Partnership.findAll({
+        attributes: ["studentId"],
+        where: {
+          projectId: projectId2.projectId, // Access projectId from result
+        },
+      });
+
+      const ids2 = studentsIds2.map((student) => student.dataValues.studentId);
+
+      for (const id in ids2) {
+        const studentId2 = ids2[id];
+        const students2 = await Student.findOne({
+          attributes: [
+            "studentId",
+            "firstName",
+            "lastName",
+            "fullName",
+            "email",
+            "department",
+            "address",
+            "mobileNumber",
+          ],
+          where: {
+            studentId: studentId2,
+          },
+        });
+        index++;
+        allStudents[index] = students2.dataValues;
+      }
+
+      res.json(Object.values(allStudents));
+    } else {
+      res.json(allStudents);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching partners" });

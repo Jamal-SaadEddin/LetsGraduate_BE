@@ -35,11 +35,7 @@ router.get("/studentsNotJoined", async (req, res) => {
       },
     });
 
-    if (Object.keys(students).length) {
-      res.json(students);
-    } else {
-      res.json({ message: "There's no single students" });
-    }
+    res.json(students);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching students without groups" });

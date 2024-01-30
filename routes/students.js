@@ -27,7 +27,19 @@ router.get("/viewProfile", async (req, res) => {
       },
     });
 
-    res.json(student);
+    res.json({
+      id: student.studentId,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      fullName: student.fullName,
+      department: student.department,
+      address: student.address,
+      mobileNumber: student.mobileNumber,
+      gp1State: student.gp1State,
+      gpState: student.gp2State,
+      projectType: student.projectType,
+      isWithGroup: student.isWithGroup,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error viewing student data" });

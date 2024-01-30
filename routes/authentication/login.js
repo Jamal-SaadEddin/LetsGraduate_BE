@@ -63,6 +63,7 @@ router.get("/login", async (req, res) => {
           projectId: projectId.projectId,
           projectOneState: studentData.gp1State,
           projectTwoState: studentData.gp2State,
+          isWithGroup: studentData.isWithGroup,
         },
       };
     } else {

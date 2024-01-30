@@ -92,6 +92,7 @@ router.get("/viewDoctorInfo", async (req, res) => {
         "fullName",
         "department",
         "address",
+        "email",
         "mobileNumber",
       ],
       where: {

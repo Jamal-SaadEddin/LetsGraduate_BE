@@ -79,4 +79,31 @@ router.get("/findMySupervisorOrSupervisors", async (req, res) => {
   }
 });
 
+router.get("/viewDoctorInfo", async (req, res) => {
+  try {
+    const { doctorId } = req.query;
+
+    // Find the projectId associated with the studentId
+    const doctor = await Doctor.findOne({
+      attributes: [
+        "doctorId",
+        "firstName",
+        "lastName",
+        "fullName",
+        "department",
+        "address",
+        "mobileNumber",
+      ],
+      where: {
+        doctorId: doctorId,
+      },
+    });
+
+    res.json(doctor);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching doctor data" });
+  }
+});
+
 module.exports = router;

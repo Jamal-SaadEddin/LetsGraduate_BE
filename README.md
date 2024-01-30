@@ -408,3 +408,8 @@ get merged groups details
 /mergedGroupsDetails/groups?requestingGroupId=1&requestedGroupId=2 GET
 
 ---
+
+view doctor profile data
+/doctors/viewDoctorInfo?doctorId=1355 GET
+
+---

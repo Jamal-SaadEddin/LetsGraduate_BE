@@ -112,7 +112,7 @@ router.get("/findMyPartners", async (req, res) => {
           studentId: studentId,
         },
       });
-      allStudents[id] = students.dataValues;
+      allStudents[id] = { ...students.dataValues, fullName: students.fullName };
       index = id;
     }
 
@@ -155,7 +155,10 @@ router.get("/findMyPartners", async (req, res) => {
           },
         });
         index++;
-        allStudents[index] = students2.dataValues;
+        allStudents[index] = {
+          ...students2.dataValues,
+          fullName: students2.fullName,
+        };
       }
 
       res.json(Object.values(allStudents));

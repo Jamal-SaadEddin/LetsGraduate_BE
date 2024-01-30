@@ -40,16 +40,17 @@ router.put("/response", async (req, res) => {
     const notificationId = req.body.notificationId;
     const senderType = "doctor";
 
-    // update status of request notification from pending to accepted or declined
+    // update status of request notification and notifyButtonText from pending to accepted or declined
     await Notification.update(
       {
         acceptStatus: acceptStatus,
+        notifyButtonText: null,
       },
       {
         where: {
           notificationId: notificationId,
         },
-        fields: ["acceptStatus"],
+        fields: ["acceptStatus", "notifyButtonText"],
       }
     );
 

@@ -376,7 +376,7 @@ POST body
 "reciverId": 1495,
 "senderId" : 1355,
 "type" : "merge",
-"content" : "is requesting to merge his/her group (132) with your group (745)",
+"content" : "is requesting to merge his/her group (7) with your group (1)",
 "senderType" : "doctor"
 }
 

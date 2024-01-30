@@ -383,9 +383,9 @@ POST body
 ---
 
 response to merge two groups
-/merge/response POST
+/merge/response PUT
 
-POST body
+PUT body
 
 {
 "senderId" : 1495,

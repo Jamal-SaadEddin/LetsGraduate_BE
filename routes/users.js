@@ -33,7 +33,6 @@ router.put("/updatePassword", async (req, res) => {
         userId: userId,
       },
     });
-    console.log(userId);
 
     // validate the old password
     if (!user || !(await bcrypt.compare(oldPassword, user.password))) {

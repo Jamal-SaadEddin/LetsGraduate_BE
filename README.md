@@ -396,3 +396,10 @@ POST body
 }
 
 ---
+
+login page
+/auth/login?userId=1355&password=123456 GET
+
+/auth/login?userId=11923604&password=123456 GET
+
+---

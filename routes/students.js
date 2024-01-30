@@ -34,6 +34,7 @@ router.get("/viewProfile", async (req, res) => {
       fullName: student.fullName,
       department: student.department,
       address: student.address,
+      email: student.email,
       mobileNumber: student.mobileNumber,
       gp1State: student.gp1State,
       gpState: student.gp2State,

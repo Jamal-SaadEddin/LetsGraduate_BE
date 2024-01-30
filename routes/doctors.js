@@ -106,6 +106,7 @@ router.get("/viewDoctorInfo", async (req, res) => {
       fullName: doctor.fullName,
       department: doctor.department,
       address: doctor.address,
+      email: doctor.email,
       mobileNumber: doctor.mobileNumber,
     });
   } catch (error) {

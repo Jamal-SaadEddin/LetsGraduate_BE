@@ -105,13 +105,8 @@ router.put("/response", async (req, res) => {
           projectId: projectId.projectId,
         });
       }
-      if (requestCreated1 && requestCreated2) {
-        res.json({ message: "Join request edited successfully" });
-      } else {
-        res.json({
-          message: "Join request doesn't edited successfully",
-        });
-      }
+
+      res.json({ message: "Join request edited successfully" });
     }
     // when the student who receive join request without group
     else {
@@ -185,13 +180,7 @@ router.put("/response", async (req, res) => {
         senderType,
       });
 
-      if (requestCreated) {
-        res.json({ message: "Join request edited successfully" });
-      } else {
-        res.json({
-          message: "Join request doesn't edited successfully",
-        });
-      }
+      res.json({ message: "Join request edited successfully" });
     }
   } catch (error) {
     console.error(error);

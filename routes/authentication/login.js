@@ -50,7 +50,7 @@ router.get("/login", async (req, res) => {
       });
 
       userData = {
-        id: userId,
+        id: parseInt(userId),
         firstName: studentData.firstName,
         lastName: studentData.lastName,
         email: studentData.email,
@@ -81,7 +81,7 @@ router.get("/login", async (req, res) => {
       });
 
       userData = {
-        id: userId,
+        id: parseInt(userId),
         firstName: doctorData.firstName,
         lastName: doctorData.lastName,
         email: doctorData.email,

@@ -3,6 +3,7 @@ const router = express.Router();
 const Project = require("../models/project");
 const Partnership = require("../models/partnership");
 const Student = require("../models/student");
+const MergedProject = require("../models/mergedProject");
 
 router.get("/fetchProject/:studentId", async (req, res) => {
   try {
@@ -16,14 +17,32 @@ router.get("/fetchProject/:studentId", async (req, res) => {
       },
     });
 
+    // check if student is in merged group
+
     const project = await Project.findOne({
-      attributes: ["projectTitle", "projectType"],
+      attributes: ["projectTitle", "projectType", "mergedProjectId"],
       where: {
         projectId: projectId.projectId,
       },
     });
 
-    res.json(project);
+    if (project.mergedProjectId) {
+      const mergedProject = await MergedProject.findOne({
+        attributes: ["projectTitle"],
+        where: {
+          mergedProjectId: project.mergedProjectId,
+        },
+      });
+      res.json({
+        mergedProjectId: mergedProject.projectTitle,
+        projectType: project.projectType,
+      });
+    } else {
+      res.json({
+        projectTitle: project.projectTitle,
+        projectType: project.projectType,
+      });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching project title" });

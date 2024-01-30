@@ -1,10 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const Student = require("../../../models/student");
+const Sequelize = require("sequelize");
 
 router.get("/studentsNotJoined", async (req, res) => {
   try {
-    const { department, projectType } = req.query;
+    const { studentId } = req.query;
+
+    // find department and project type
+    const student = await Student.findOne({
+      attributes: ["department", "projectType"],
+      where: {
+        studentId: studentId,
+      },
+    });
 
     // Retrieve students information who are without groups
     const students = await Student.findAll({
@@ -19,13 +28,18 @@ router.get("/studentsNotJoined", async (req, res) => {
         "mobileNumber",
       ],
       where: {
-        department: department,
-        projectType: projectType,
+        department: student.department,
+        projectType: student.projectType,
         isWithGroup: 0,
+        studentId: { [Sequelize.Op.ne]: studentId },
       },
     });
 
-    res.json(students);
+    if (Object.keys(students).length) {
+      res.json(students);
+    } else {
+      res.json({ message: "There's no single students" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching students without groups" });

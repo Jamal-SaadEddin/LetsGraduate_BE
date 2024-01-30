@@ -29,6 +29,7 @@ const markAllReadstatusRoutes = require("./routes/notification/mark_all_readstat
 const allGroupsRoutes = require("./routes/doctor/allgroups");
 const mergeRoutes = require("./routes/doctor/merge");
 const authRoutes = require("./routes/authentication/login");
+const mergedGroupsDetailsRoutes = require("./routes/doctor/merged_groups_details");
 
 const app = express();
 app.use(cors());
@@ -75,6 +76,7 @@ app.use("/allReadstatus", markAllReadstatusRoutes);
 app.use("/allGroups", allGroupsRoutes);
 app.use("/merge", mergeRoutes);
 app.use("/auth", authRoutes);
+app.use("/mergedGroupsDetails", mergedGroupsDetailsRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

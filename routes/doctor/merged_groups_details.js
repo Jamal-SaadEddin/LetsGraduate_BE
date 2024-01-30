@@ -7,28 +7,34 @@ const Project = require("../../models/project");
 
 router.get("/groups", async (req, res) => {
   try {
-    // Find the projectId associated with the studentId
-    const projects = await Project.findAll({
-      attributes: ["projectId", "projectTitle", "doctorId"],
-      where: {
-        doctorId: {
-          [Sequelize.Op.ne]: null,
+    const { requestingGroupId } = req.query;
+    const { requestedGroupId } = req.query;
+
+    const mergedGroupdIds = [requestingGroupId, requestedGroupId];
+
+    const mergedGroupsData = {};
+    const keys = ["requestingGroup", "requestedGroup"];
+    for (const index in mergedGroupdIds) {
+      const mergedGroupId = mergedGroupdIds[index];
+      // Find the projectId, projectTitle, and doctorId associated with the projectId
+      const project = await Project.findOne({
+        attributes: ["projectId", "projectTitle", "doctorId"],
+        where: {
+          projectId: mergedGroupId,
         },
-      },
-    });
+      });
 
-    // rename columns projectId to id and projectTitle to title
-    const formattedProjects = projects.map((project) => ({
-      id: project.projectId,
-      title: project.projectTitle,
-      doctorId: project.doctorId,
-    }));
+      mergedGroupsData[index] = {
+        id: project.dataValues.projectId,
+        title: project.dataValues.projectTitle,
+        doctorId: project.dataValues.doctorId,
+      };
+    }
 
-    const projectsData = {};
-    for (const project in formattedProjects) {
-      // fetch group data and get projectId
-      const projectData = formattedProjects[project];
-      const projectId = projectData.id;
+    const mergedData = {};
+    for (const index in Object.values(mergedGroupsData)) {
+      const mergedGroupData = Object.values(mergedGroupsData)[index];
+      const projectId = mergedGroupData.id;
 
       // get students IDs for every project based on projectId
       const studentsIds = await Partnership.findAll({
@@ -92,15 +98,14 @@ router.get("/groups", async (req, res) => {
             fullName: students[student].fullName,
           };
         }
-      }
-      console.log(Object.values(studentsData));
 
-      // add field students to projects and give it students as value
-      projectData["students"] = Object.values(studentsData);
-      projectsData[project] = projectData;
+        // add field students to projects and give it students as value
+        mergedGroupData["students"] = Object.values(studentsData);
+        mergedData[keys[index]] = mergedGroupData;
+      }
     }
 
-    res.json(Object.values(projectsData));
+    res.json(mergedData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching my groups" });

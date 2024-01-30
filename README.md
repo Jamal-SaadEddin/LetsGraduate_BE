@@ -403,3 +403,8 @@ login page
 /auth/login?userId=11923604&password=123456 GET
 
 ---
+
+get merged groups details
+/mergedGroupsDetails/groups?requestingGroupId=1&requestedGroupId=2 GET
+
+---

@@ -426,3 +426,17 @@ PUT body
 "address" : "Jenin",
 "mobileNumber" :"0595493759"
 }
+
+---
+
+add submission
+/addSubmission/submission POST
+
+POST body
+
+{
+"projectId": 7,
+"file" : "/src/assets/abstracts/Let's Graduate -Abstract.pdf"
+}
+
+---

@@ -18,7 +18,6 @@ router.get("/fetchProject/:studentId", async (req, res) => {
     });
 
     // check if student is in merged group
-
     const project = await Project.findOne({
       attributes: ["projectTitle", "projectType", "mergedProjectId"],
       where: {
@@ -95,10 +94,24 @@ router.put("/editTitle/:studentId", async (req, res) => {
       },
     });
 
-    await Project.update(
-      { projectTitle: projectTitle },
-      { where: { projectId: projectId.projectId } }
-    );
+    // check if student is in merged group
+    const project = await Project.findOne({
+      attributes: ["mergedProjectId"],
+      where: {
+        projectId: projectId.projectId,
+      },
+    });
+    if (project.mergedProjectId) {
+      await MergedProject.update(
+        { projectTitle: projectTitle },
+        { where: { mergedProjectId: project.mergedProjectId } }
+      );
+    } else {
+      await Project.update(
+        { projectTitle: projectTitle },
+        { where: { projectId: projectId.projectId } }
+      );
+    }
 
     res.json({ message: "Project title updated successfully" });
   } catch (error) {

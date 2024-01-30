@@ -30,6 +30,7 @@ router.get("/findGroups", async (req, res) => {
     const maxNumOfMembers = counts.maxNoOfStuPerProj;
 
     const projectsIdsList = [];
+    let index = 0;
     for (const projectId in projectsIds) {
       const projectIdValue = projectsIds[projectId].dataValues.projectId;
 
@@ -42,11 +43,17 @@ router.get("/findGroups", async (req, res) => {
 
       // add just not full groups
       if (membersCount < maxNumOfMembers) {
-        projectsIdsList[projectId] = projectIdValue;
+        projectsIdsList[index] = projectIdValue;
+        index++;
       }
     }
 
     const groupsIds = {};
+
+    if (Object.keys(projectsIdsList).length == 0) {
+      return res.json({ message: "There is no groups empty or need members" });
+    }
+
     // Fetch groups IDs based on the retrieved projectsIds
     for (const projectId of projectsIdsList) {
       const studentsIds = await Partnership.findAll({

@@ -49,23 +49,43 @@ router.get("/login", async (req, res) => {
         },
       });
 
-      userData = {
-        id: parseInt(userId),
-        firstName: studentData.firstName,
-        lastName: studentData.lastName,
-        email: studentData.email,
-        department: studentData.department,
-        address: studentData.address,
-        mobileNumber: studentData.mobileNumber,
-        type: "student",
-        currentPeriod: department.currentPeriod,
-        info: {
-          projectId: projectId.projectId,
-          projectOneState: studentData.gp1State,
-          projectTwoState: studentData.gp2State,
-          isWithGroup: studentData.isWithGroup,
-        },
-      };
+      if (projectId) {
+        userData = {
+          id: parseInt(userId),
+          firstName: studentData.firstName,
+          lastName: studentData.lastName,
+          email: studentData.email,
+          department: studentData.department,
+          address: studentData.address,
+          mobileNumber: studentData.mobileNumber,
+          type: "student",
+          currentPeriod: department.currentPeriod,
+          info: {
+            projectId: projectId.projectId,
+            projectOneState: studentData.gp1State,
+            projectTwoState: studentData.gp2State,
+            isWithGroup: studentData.isWithGroup,
+          },
+        };
+      } else {
+        userData = {
+          id: parseInt(userId),
+          firstName: studentData.firstName,
+          lastName: studentData.lastName,
+          email: studentData.email,
+          department: studentData.department,
+          address: studentData.address,
+          mobileNumber: studentData.mobileNumber,
+          type: "student",
+          currentPeriod: department.currentPeriod,
+          info: {
+            projectId: null,
+            projectOneState: studentData.gp1State,
+            projectTwoState: studentData.gp2State,
+            isWithGroup: studentData.isWithGroup,
+          },
+        };
+      }
     } else {
       const doctorData = await Doctor.findOne({
         where: {

@@ -51,7 +51,7 @@ router.get("/findGroups", async (req, res) => {
     const groupsIds = {};
 
     if (Object.keys(projectsIdsList).length == 0) {
-      return res.json({ message: "There is no groups empty or need members" });
+      return res.json([[]]);
     }
 
     // Fetch groups IDs based on the retrieved projectsIds

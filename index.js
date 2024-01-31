@@ -30,7 +30,7 @@ const allGroupsRoutes = require("./routes/doctor/allgroups");
 const mergeRoutes = require("./routes/doctor/merge");
 const authRoutes = require("./routes/authentication/login");
 const mergedGroupsDetailsRoutes = require("./routes/doctor/merged_groups_details");
-const addSubmissionRoutes = require("./routes/student/add_submission");
+const submissionRoutes = require("./routes/student/submission");
 
 const app = express();
 app.use(cors());
@@ -78,7 +78,7 @@ app.use("/allGroups", allGroupsRoutes);
 app.use("/merge", mergeRoutes);
 app.use("/auth", authRoutes);
 app.use("/mergedGroupsDetails", mergedGroupsDetailsRoutes);
-app.use("/addSubmission", addSubmissionRoutes);
+app.use("/submissions", submissionRoutes);
 
 // Start server
 const port = process.env.PORT || 3000;

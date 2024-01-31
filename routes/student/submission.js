@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Submission = require("../../models/submission");
 
-router.post("/submission", async (req, res) => {
+router.post("/submissionAdd", async (req, res) => {
   try {
     const newSubmission = {
       projectId: req.body.projectId,
@@ -52,45 +52,31 @@ router.post("/submission", async (req, res) => {
   }
 });
 
-router.delete("/submission", async (req, res) => {
+router.delete("/submissionDelete", async (req, res) => {
   try {
-    const { userId } = req.query;
+    const { submissionId } = req.query;
 
-    // Fetch user type
-    const userType = await User.findOne({
-      attributes: ["type"],
+    // Check if there's submission to delete
+    const submission = await Submission.findOne({
       where: {
-        userId: userId,
+        submissionId: submissionId,
       },
     });
 
-    // delete user
-    await Submission.destroy({
-      where: {
-        userId: userId,
-      },
-    });
-
-    if (userType.type === "student") {
-      //delete student data
-      await Student.destroy({
+    if (submission) {
+      // delete submission
+      await Submission.destroy({
         where: {
-          studentId: userId,
+          submissionId: submissionId,
         },
       });
+      res.json({ message: "Account data deleted successfully" });
     } else {
-      //delete student data
-      await Doctor.destroy({
-        where: {
-          doctorId: userId,
-        },
-      });
+      res.json({ message: "This group doesn't have submission to delete" });
     }
-
-    res.json({ message: "Account data deleted successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error in deleting account data" });
+    res.status(500).json({ message: "Error in deleting submission data" });
   }
 });
 

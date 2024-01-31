@@ -430,7 +430,7 @@ PUT body
 ---
 
 add submission
-/addSubmission/submission POST
+/submissions/submissionAdd POST
 
 POST body
 
@@ -438,5 +438,10 @@ POST body
 "projectId": 7,
 "file" : "/src/assets/abstracts/Let's Graduate -Abstract.pdf"
 }
+
+---
+
+delete submission
+/submissions/submissionDelete?submissionId=3 DELETE
 
 ---

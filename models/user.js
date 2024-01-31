@@ -18,6 +18,16 @@ const User = sequelize.define(
     type: {
       type: Sequelize.STRING,
     },
+    email: {
+      type: Sequelize.STRING,
+    },
+    verificationCode: {
+      type: Sequelize.STRING,
+    },
+    isVerified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     timestamps: false,

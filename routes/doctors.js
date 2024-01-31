@@ -71,7 +71,7 @@ router.get("/findMySupervisorOrSupervisors", async (req, res) => {
       const allDoctors = { doctor1, doctor2 };
       res.json(Object.values(allDoctors));
     } else {
-      res.json(doctor1);
+      res.json([doctor1]);
     }
   } catch (error) {
     console.error(error);

@@ -176,7 +176,7 @@ router.get("/findMyPartners", async (req, res) => {
 
       res.json(Object.values(allStudents));
     } else {
-      res.json(allStudents);
+      res.json(Object.values(allStudents));
     }
   } catch (error) {
     console.error(error);

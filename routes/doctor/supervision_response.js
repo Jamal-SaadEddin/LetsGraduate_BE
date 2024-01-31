@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Notification = require("../../models/notification");
 const Partnership = require("../../models/partnership");
+const Project = require("../../models/project");
 const createNotification = require("../../functions/create_notification");
 const Sequelize = require("sequelize");
 
@@ -50,6 +51,19 @@ router.put("/response", async (req, res) => {
           },
         },
       });
+
+      // update project table doctorId column
+      await Project.update(
+        {
+          doctorId: senderId,
+        },
+        {
+          where: {
+            projectId: reciverId,
+          },
+          fields: ["doctorId"],
+        }
+      );
     } else {
       content =
         "Unfortunately, I'm unable to supervise your graduation project currently. Your understanding is appreciated. Thank you.";

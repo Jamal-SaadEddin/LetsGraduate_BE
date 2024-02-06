@@ -7,12 +7,17 @@ const Project = require("../../models/project");
 
 router.get("/groups", async (req, res) => {
   try {
+    const { doctorId } = req.query;
+
     // Find the projectId associated with the studentId
     const projects = await Project.findAll({
       attributes: ["projectId", "projectTitle", "doctorId"],
       where: {
         doctorId: {
           [Sequelize.Op.ne]: null,
+        },
+        doctorId: {
+          [Sequelize.Op.ne]: doctorId,
         },
       },
     });

@@ -363,7 +363,7 @@ check if student has supervisor
 page 7 (Merge Groups)
 
 get all groups
-/allGroups/groups GET
+/allGroups/groups?doctorId=1355 GET
 
 ---
 

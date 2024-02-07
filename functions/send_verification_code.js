@@ -5,7 +5,7 @@ async function sendVerificationCode(email, code) {
     service: "gmail",
     auth: {
       user: "s11925044@stu.najah.edu",
-      pass: "----",
+      pass: "BAn#36597",
     },
   });
 

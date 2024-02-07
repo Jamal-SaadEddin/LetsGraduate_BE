@@ -447,11 +447,23 @@ delete submission
 ---
 
 verify email & send verification code
-verifyEmail/email PUT
+forgetPassword/sendCode PUT
 
 PUT body
 
 {
+"email" :"omarmustafaqaneer@gmail.com"
+}
+
+---
+
+verify code
+/forgetPassword/verifyCode PUT
+
+PUT body
+
+{
+"code": "ElhF",
 "email" :"omarmustafaqaneer@gmail.com"
 }
 

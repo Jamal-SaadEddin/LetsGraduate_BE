@@ -5,7 +5,7 @@ const User = require("../../models/user");
 const sendVerificationCode = require("../../functions/send_verification_code");
 require("dotenv").config();
 
-router.put("/email", async (req, res) => {
+router.put("/sendCode", async (req, res) => {
   try {
     const email = req.body.email;
 
@@ -38,6 +38,40 @@ router.put("/email", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error sending email" });
+  }
+});
+
+router.put("/verifyCode", async (req, res) => {
+  try {
+    const code = req.body.code;
+    const email = req.body.email;
+
+    // check if email isn't in the table
+    const checkCode = await User.findOne({
+      where: {
+        email: email,
+        verificationCode: code,
+      },
+    });
+
+    if (checkCode) {
+      await User.update(
+        { isVerified: true },
+        {
+          where: {
+            email: email,
+          },
+          fields: ["isVerified"],
+        }
+      );
+
+      res.json({ message: "verification code verified successfully" });
+    } else {
+      res.json({ message: "Invalid code please try again later" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error verifing code" });
   }
 });
 

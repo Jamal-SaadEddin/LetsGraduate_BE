@@ -480,3 +480,22 @@ PUT body
 }
 
 ---
+
+signup
+/signUp/user POST
+
+POST body
+
+{
+"userId": "11921010",
+"firstName" :"Ahmad",
+"lastName" :"Amira",
+"email" :"s11921010@stu.najah.edu",
+"department" :"Computer Engineering",
+"address" :"Nablus",
+"mobileNumber" :"0595493755",
+"password" :"123456",
+"type" :"student"
+}
+
+---

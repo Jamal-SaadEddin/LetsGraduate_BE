@@ -32,6 +32,7 @@ const authRoutes = require("./routes/authentication/login");
 const mergedGroupsDetailsRoutes = require("./routes/doctor/merged_groups_details");
 const submissionRoutes = require("./routes/student/submission");
 const forgetPasswordRoutes = require("./routes/authentication/forget_password");
+const signUpRoute = require("./routes/authentication/signup");
 
 const app = express();
 app.use(cors());
@@ -81,6 +82,7 @@ app.use("/auth", authRoutes);
 app.use("/mergedGroupsDetails", mergedGroupsDetailsRoutes);
 app.use("/submissions", submissionRoutes);
 app.use("/forgetPassword", forgetPasswordRoutes);
+app.use("/signUp", signUpRoute);
 
 // Start server
 const port = process.env.PORT || 3000;

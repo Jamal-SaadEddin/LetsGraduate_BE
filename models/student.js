@@ -37,15 +37,18 @@ const Student = sequelize.define(
     },
     gp1State: {
       type: Sequelize.STRING,
+      defaultValue: "not started",
     },
     gp2State: {
       type: Sequelize.STRING,
+      defaultValue: "not started",
     },
     projectType: {
       type: Sequelize.STRING,
     },
     isWithGroup: {
       type: Sequelize.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

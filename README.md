@@ -499,3 +499,8 @@ POST body
 }
 
 ---
+
+get all departments data
+/allDepartments/departments GET
+
+---

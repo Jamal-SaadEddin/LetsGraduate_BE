@@ -89,9 +89,18 @@ router.put("/resetPassword", async (req, res) => {
     });
 
     if (user) {
-      console.log(user.password);
       user.password = password;
       await user.save();
+
+      await User.update(
+        { isVerified: false, verificationCode: null },
+        {
+          where: {
+            email: email,
+          },
+          fields: ["isVerified", "verificationCode"],
+        }
+      );
 
       res.json({ message: "Password reseted successfully" });
     } else {

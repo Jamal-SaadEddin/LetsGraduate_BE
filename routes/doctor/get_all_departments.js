@@ -7,14 +7,6 @@ const Sequelize = require("sequelize");
 
 router.get("/departments", async (req, res) => {
   try {
-    // // Find the department name associated with the doctorId
-    // const departmentName = await Doctor.findOne({
-    //   attributes: ["department"],
-    //   where: {
-    //     doctorId: doctorId,
-    //   },
-    // });
-
     const allDepartments = [];
     // Find department settings associated with department name
     const departmentsNames = await Department.findAll({

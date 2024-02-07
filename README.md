@@ -504,3 +504,15 @@ get all departments data
 /allDepartments/departments GET
 
 ---
+
+update department manager
+chooseDepartmentManager/departmentManager PUT
+
+PUT body
+
+{
+"department": "Computer Engineering",
+"newManager" :"Manar Qamhieh - 1355"
+}
+
+---

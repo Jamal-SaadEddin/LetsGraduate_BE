@@ -86,7 +86,7 @@ router.get("/login", async (req, res) => {
           },
         };
       }
-    } else {
+    } else if (user.type == "doctor") {
       const doctorData = await Doctor.findOne({
         where: {
           doctorId: userId,
@@ -116,6 +116,12 @@ router.get("/login", async (req, res) => {
           isDepartmentManager: doctorData.isDepartmentManager,
           isProjectsCommitteeMember: doctorData.isProjectsCommitteeMember,
         },
+      };
+    } else if (user.type == "admin") {
+      userData = {
+        id: parseInt(userId),
+        type: "admin",
+        email: user.email,
       };
     }
 

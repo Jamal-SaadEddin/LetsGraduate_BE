@@ -468,3 +468,15 @@ PUT body
 }
 
 ---
+
+reset password
+/forgetPassword/resetPassword PUT
+
+PUT body
+
+{
+"password": "654321",
+"email" :"omarmustafaqaneer@gmail.com"
+}
+
+---

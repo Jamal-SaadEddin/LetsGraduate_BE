@@ -75,4 +75,32 @@ router.put("/verifyCode", async (req, res) => {
   }
 });
 
+router.put("/resetPassword", async (req, res) => {
+  try {
+    const password = req.body.password;
+    const email = req.body.email;
+
+    // check if email isn't in the table
+    const user = await User.findOne({
+      where: {
+        email: email,
+        isVerified: true,
+      },
+    });
+
+    if (user) {
+      console.log(user.password);
+      user.password = password;
+      await user.save();
+
+      res.json({ message: "Password reseted successfully" });
+    } else {
+      res.json({ message: "There's some errors please try again later" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error reseting password" });
+  }
+});
+
 module.exports = router;

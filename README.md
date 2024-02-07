@@ -445,3 +445,14 @@ delete submission
 /submissions/submissionDelete?submissionId=3 DELETE
 
 ---
+
+verify email & send verification code
+verifyEmail/email PUT
+
+PUT body
+
+{
+"email" :"omarmustafaqaneer@gmail.com"
+}
+
+---

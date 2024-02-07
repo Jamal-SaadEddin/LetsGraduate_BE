@@ -31,8 +31,7 @@ router.put("/email", async (req, res) => {
 
       await sendVerificationCode(email, verificationCode);
 
-      //omarmustafaqaneer@gmail.com
-      res.json({ message: "verification code updated successfully" });
+      res.json({ message: "verification code sended successfully" });
     } else {
       res.json({ message: "Invalid email please check it and try again" });
     }

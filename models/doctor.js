@@ -37,12 +37,15 @@ const Doctor = sequelize.define(
     },
     isSupervisor: {
       type: Sequelize.BOOLEAN,
+      defaultValue: true,
     },
     isDepartmentManager: {
       type: Sequelize.BOOLEAN,
+      defaultValue: false,
     },
     isProjectsCommitteeMember: {
       type: Sequelize.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

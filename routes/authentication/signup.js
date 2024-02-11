@@ -48,7 +48,7 @@ router.post("/user", async (req, res) => {
         });
       } else if (type == "doctor") {
         await Doctor.create({
-          studentId: userId,
+          doctorId: userId,
           firstName: firstName,
           lastName: lastName,
           email: email,
